@@ -1,5 +1,6 @@
 import * as UserAction from './user.actions';
 import { User } from './user.model';
+import { ObjectHelper } from 'src/app/helper/object.helper';
 
 export type Action = UserAction.All;
 
@@ -10,18 +11,13 @@ const defaultState: User = {
     lastname: 'Aire'
 }
 
-// Helper function to create new state object 
-const newState = (state, newData) => {
-    return Object.assign({}, state, newData);
-}
-
 // Reducer
 export function userReducer(state: User = defaultState, action: Action) {
     console.log(action.type, state);
 
     switch (action.type) {
         case UserAction.POST:
-            state = newState(state, action.payload);
+            state = ObjectHelper.newObject(state, action.payload);
             break;
         case UserAction.PATCH:
 
