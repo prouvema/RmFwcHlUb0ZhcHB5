@@ -8,7 +8,8 @@ import { Authentication } from "src/app/security/anthentication.model";
 
 @Component({
     selector: 'app-spectator-welcome',
-    templateUrl: './spectator-welcome.component.html'
+    templateUrl: './spectator-welcome.component.html',
+    styleUrls: ['./spectator-welcome.component.scss', '../../shared/global.component.scss']
 })
 export class SpectatorWelcomeComponent implements OnInit {
 
@@ -16,6 +17,8 @@ export class SpectatorWelcomeComponent implements OnInit {
     public locker: string | null;
     public getState: Observable<any>;
     public errorMessage: string | null;
+
+    public rememberCredentials: boolean;
 
     constructor(
         private store: Store<AppState>
@@ -30,7 +33,6 @@ export class SpectatorWelcomeComponent implements OnInit {
     };
 
     public onSubmit(): void {
-        console.log(this.email);
         const payload: Authentication = {
             username: this.email,
             locker: this.locker
