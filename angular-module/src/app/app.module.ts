@@ -16,6 +16,7 @@ import { TokenInterceptor } from './security/token.interceptor';
 import { UnauthorizedInterceptor } from './security/unauthorized.interceptor';
 import { UnauthorizedComponent } from './component/unauthorized/unauthorized.component';
 import { AuthGuardService as AuthGuard } from './security/auth-guard.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { AuthGuardService as AuthGuard } from './security/auth-guard.service';
     //   user: userReducer
     // })
     StoreModule.forRoot(reducers, {}),
+    BrowserAnimationsModule
   ],
   providers: [
     AuthenticationService,
