@@ -23,7 +23,7 @@ export class AuthenticationEffects {
       return this.authService.logIn(payload.username, payload.locker).pipe(
         map((loginResponse) => {
           console.log('loginResponse', loginResponse);
-          return new LogInSuccess({ token: loginResponse.token, user: loginResponse.user });
+          return new LogInSuccess({ token: loginResponse.access_token });
         }),
         catchError((error) => {
           console.log('error', error);

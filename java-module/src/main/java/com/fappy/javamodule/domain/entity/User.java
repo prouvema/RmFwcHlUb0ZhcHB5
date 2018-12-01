@@ -1,69 +1,139 @@
 package com.fappy.javamodule.domain.entity;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-public class User implements UserDetails {
+public class User extends AbstractEntity implements UserDetails {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 88958501666776965L;
 
-	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+	@Column(name = "email", nullable = false)
+    private String username;
+	
+	@Column(nullable = false)
+	private String password;
+	
+	@Column(nullable = false)
+	private boolean enabled = false;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Profile profile;
+	
+	@JoinTable(
+			name = "user_application_role_join", 
+			joinColumns = @JoinColumn(name = "user_id"), 
+			inverseJoinColumns = @JoinColumn(name = "application_role_id")
+			)
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<ApplicationRole> applicationRoles;
+	
+	@Column(name = "account_non_expired", nullable = false)
+	private boolean accountNonExpired = true;
 
-    private String email;
-
+	@Column(name = "account_non_locked", nullable = false)
+	private boolean accountNonLocked = true;
+	
+	@Column(name = "credentials_non_expired", nullable = false)
+	private boolean credentialsNonExpired = true;
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<ApplicationAccess> applicationAccesses = new HashSet<>();
+		
+		this.applicationRoles.stream().forEach(applicationRole -> {
+			applicationRole.getApplicationAccesses().stream()
+				.filter(applicationAccess -> !applicationAccesses.contains(applicationAccess))
+				.forEach(applicationAccess -> applicationAccesses.add(applicationAccess));
+		});
+		
+		return applicationAccesses;
 	}
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.password;
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.username;
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.accountNonExpired;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.accountNonLocked;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.credentialsNonExpired;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.enabled;
+	}
+
+	public Profile getProfile() {
+		return profile;
+	}
+
+	public void setProfile(Profile profile) {
+		this.profile = profile;
+	}
+
+	public Set<ApplicationRole> getApplicationRoles() {
+		return applicationRoles;
+	}
+
+	public void setApplicationRoles(Set<ApplicationRole> applicationRoles) {
+		this.applicationRoles = applicationRoles;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public void setAccountNonExpired(boolean accountNonExpired) {
+		this.accountNonExpired = accountNonExpired;
+	}
+
+	public void setAccountNonLocked(boolean accountNonLocked) {
+		this.accountNonLocked = accountNonLocked;
+	}
+
+	public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+		this.credentialsNonExpired = credentialsNonExpired;
 	}
     
 }

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: 'http://localhost:8080/fappy-facade',
+  apiEndpoint: 'http://localhost:8080',
   frontURL: 'http://localhost:4200/'
 };
 

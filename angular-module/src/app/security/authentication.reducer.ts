@@ -7,14 +7,18 @@ export interface State {
     // is a user authenticated?
     isAuthenticated: boolean;
     // if authenticated, there should be a user object
-    user: User | null;
+    token: string | null;
     // error message
     errorMessage: string | null;
 }
 
 export const initialState: State = {
     isAuthenticated: false,
-    user: null,
+    token: null,
+    // expires_in: 3423
+    // refresh_token: "e1016231-53a3-4bab-83b2-30fbd97439cd"
+    // scope: "read write trust"
+    // token_type: "bearer",
     errorMessage: null
 };
 
@@ -42,10 +46,12 @@ export const initialState: State = {
 export function reducer(state = initialState, action: Action): State {
     switch (action.type) {
         case AuthActionTypes.LOGIN_SUCCESS:
+        console.log('yep');
+        console.log(JSON.stringify(action.payload));
             return {
                 ...state,
                 isAuthenticated: true,
-                user: action.payload.user,
+                token: action.payload.token,
                 // token: action.payload.token,
                 errorMessage: null
             };
