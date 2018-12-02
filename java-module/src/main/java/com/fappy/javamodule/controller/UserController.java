@@ -19,7 +19,7 @@ public class UserController {
 	private UserService userService;
 	
 	@GetMapping(path="current")
-	public ResponseEntity<?> helloPrivate() {
+	public ResponseEntity<?> findCurrentUser() {
 		User currentUser = this.userService.findLoggedUser();
 		UserDTO userDTO = new UserDTOBuilder()
 				.withUser(currentUser)
