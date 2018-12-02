@@ -17,7 +17,7 @@ import { UnauthorizedInterceptor } from './security/unauthorized.interceptor';
 import { UnauthorizedComponent } from './component/unauthorized/unauthorized.component';
 import { AuthGuardService as AuthGuard } from './security/auth-guard.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatFormFieldModule, MatInputModule, MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatButtonModule, MatCheckboxModule, MatMenuModule, MatIconModule } from '@angular/material';
 import { UserService } from './entity/user/user.service';
 
 @NgModule({
@@ -32,6 +32,8 @@ import { UserService } from './entity/user/user.service';
     MatInputModule,
     MatButtonModule, 
     MatCheckboxModule,
+    MatMenuModule,
+    MatIconModule,
     
     BrowserModule,
     HttpClientModule,

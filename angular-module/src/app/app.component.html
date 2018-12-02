@@ -1,1 +1,8 @@
+<button *ngIf="authenticated" class="float-right m-3" mat-icon-button [matMenuTriggerFor]="settings">
+    <mat-icon>settings</mat-icon>
+</button>
+<mat-menu #settings="matMenu">
+    <button mat-menu-item (click)="logOut()">Se déconnecter</button>
+</mat-menu>
+
 <router-outlet></router-outlet>

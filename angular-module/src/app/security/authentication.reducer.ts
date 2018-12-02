@@ -4,13 +4,13 @@ import { AuthActionTypes, All } from './authentication.actions';
 export type Action = All;
 
 export interface State {
-    isAuthenticated: boolean;
+    authenticated: boolean;
     token: string | null;
     errorMessage: string | null;
 }
 
 export const initialState: State = {
-    isAuthenticated: false,
+    authenticated: false,
     token: null,
     // expires_in: 3423
     // refresh_token: "e1016231-53a3-4bab-83b2-30fbd97439cd"
@@ -24,7 +24,7 @@ export function reducer(state = initialState, action: Action): State {
         case AuthActionTypes.LOGIN_SUCCESS:
             return {
                 ...state,
-                isAuthenticated: true,
+                authenticated: true,
                 token: action.payload.token,
                 // token: action.payload.token,
                 errorMessage: null
@@ -36,6 +36,11 @@ export function reducer(state = initialState, action: Action): State {
             };
         case AuthActionTypes.LOGOUT: 
             return initialState;
+        case AuthActionTypes.AUTHENTICATED:
+            return {
+                ...state,
+                authenticated: action.payload.authenticated
+            }
         default:
             return state;
     }

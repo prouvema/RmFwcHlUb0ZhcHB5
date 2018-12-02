@@ -4,7 +4,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from "rxjs";
 import { catchError, map, switchMap, tap } from "rxjs/operators";
 import { AuthenticationService } from './authentication.service';
-import { AuthActionTypes, LogIn, LogInSuccess, LogInFailure, LogOut } from './authentication.actions';
+import { AuthActionTypes, LogIn, LogInSuccess, LogInFailure, LogOut, Authenticated } from './authentication.actions';
 
 @Injectable()
 export class AuthenticationEffects {
@@ -53,6 +53,14 @@ export class AuthenticationEffects {
     tap(() => {
       localStorage.removeItem('token');
       this.router.navigateByUrl('/welcome');
+    })
+  );
+
+  @Effect()
+  IsAuthenticated: Observable<any> = this.actions.pipe(
+    ofType(AuthActionTypes.IS_AUTHENTICATED),
+    map(() => {
+        return new Authenticated({ authenticated: !!this.authService.getToken()});
     })
   );
 }

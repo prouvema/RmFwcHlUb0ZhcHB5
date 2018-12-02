@@ -26,13 +26,8 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
         this.userService.loadCurrentUser();
 
-        // this.store.dispatch(new GetCurrentUser);
         this.userState.subscribe((state) => {
             this.user = state.user;
         });
     };
-
-    public logOut(): void {
-        this.store.dispatch(new LogOut);
-    }
 }

@@ -5,7 +5,9 @@ export enum AuthActionTypes {
     LOGIN = '[Auth] Login',
     LOGIN_SUCCESS = '[Auth] Login Success',
     LOGIN_FAILURE = '[Auth] Login Failure',
-    LOGOUT = '[Auth] LogOut'
+    LOGOUT = '[Auth] LogOut',
+    IS_AUTHENTICATED = '[Auth] Is Authenticated',
+    AUTHENTICATED = '[Auth] Authenticated'
 }
 
 export class LogIn implements Action {
@@ -28,8 +30,20 @@ export class LogOut implements Action {
     constructor(public payload?: any) { }
 }
 
+export class IsAuthenticated implements Action {
+    readonly type: AuthActionTypes = AuthActionTypes.IS_AUTHENTICATED;
+    constructor(public payload?: any) { }
+}
+
+export class Authenticated implements Action {
+    readonly type: AuthActionTypes = AuthActionTypes.AUTHENTICATED;
+    constructor(public payload?: any) { }
+}
+
 export type All =
     | LogIn
     | LogInSuccess
     | LogInFailure
-    | LogOut;
+    | LogOut
+    | IsAuthenticated
+    | Authenticated;

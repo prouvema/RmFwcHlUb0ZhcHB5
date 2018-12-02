@@ -15,7 +15,7 @@ export class SpectatorWelcomeComponent implements OnInit {
 
     public email: string | null;
     public locker: string | null;
-    public getState: Observable<any>;
+    public authState: Observable<any>;
     public errorMessage: string | null;
 
     public rememberCredentials: boolean;
@@ -23,11 +23,11 @@ export class SpectatorWelcomeComponent implements OnInit {
     constructor(
         private store: Store<AppState>
     ) {
-        this.getState = this.store.select(selectAuthState);
+        this.authState = this.store.select(selectAuthState);
     }
 
     ngOnInit() {
-        this.getState.subscribe((state) => {
+        this.authState.subscribe((state) => {
             this.errorMessage = state.errorMessage;
         });
     };
