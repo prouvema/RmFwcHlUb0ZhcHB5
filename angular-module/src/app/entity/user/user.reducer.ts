@@ -1,33 +1,31 @@
-import * as UserAction from './user.actions';
 import { User } from './user.model';
-import { ObjectHelper } from 'src/app/helper/object.helper';
+import { UserActionTypes, All } from './user.actions';
 
-export type Action = UserAction.All;
+export type Action = All;
+
+export interface State {
+    user: User | null;
+}
 
 // Default app state
-const defaultState: User = {
-    email: 'axel.aire@phappy',
-    firstname: 'Axel',
-    lastname: 'Aire'
+const initialState: State = {
+    user: null
 }
 
 // Reducer
-export function userReducer(state: User = defaultState, action: Action) {
-    console.log(action.type, state);
+export function userReducer(state: State = initialState, action: Action) {
+    // console.log(action.type, state);
 
     switch (action.type) {
-        case UserAction.POST:
-            state = ObjectHelper.newObject(state, action.payload);
-            break;
-        case UserAction.PATCH:
+        // case UserAction.POST:
+           
+        // case UserAction.PATCH:
 
-            break;
-        case UserAction.DELETE:
+        // case UserAction.DELETE:
 
-            break;
+        case UserActionTypes.GET_CURRENT:
+            return action.payload;
         default:
-            break;
+            return state;
     }
-
-    return state;
 }

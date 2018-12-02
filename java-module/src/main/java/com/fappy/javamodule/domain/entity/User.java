@@ -16,6 +16,8 @@ import javax.persistence.OneToOne;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class User extends AbstractEntity implements UserDetails {
 
@@ -27,6 +29,7 @@ public class User extends AbstractEntity implements UserDetails {
 	@Column(name = "email", nullable = false)
     private String username;
 	
+	@JsonIgnore
 	@Column(nullable = false)
 	private String password;
 	
@@ -53,6 +56,7 @@ public class User extends AbstractEntity implements UserDetails {
 	@Column(name = "credentials_non_expired", nullable = false)
 	private boolean credentialsNonExpired = true;
 	
+	@JsonIgnore
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Set<ApplicationAccess> applicationAccesses = new HashSet<>();

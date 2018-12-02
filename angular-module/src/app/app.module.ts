@@ -18,6 +18,7 @@ import { UnauthorizedComponent } from './component/unauthorized/unauthorized.com
 import { AuthGuardService as AuthGuard } from './security/auth-guard.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule, MatInputModule, MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { UserService } from './entity/user/user.service';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { MatFormFieldModule, MatInputModule, MatButtonModule, MatCheckboxModule 
   providers: [
     AuthenticationService,
     AuthGuard,
+    UserService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

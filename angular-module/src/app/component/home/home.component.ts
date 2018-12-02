@@ -1,9 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { AppState, selectAuthState } from "src/app/app.states";
+import { AppState, selectUserState } from "src/app/app.states";
 import { LogOut } from "src/app/security/authentication.actions";
 import { User } from "src/app/entity/user/user.model";
 import { Observable } from "rxjs";
+import { GetCurrentUser } from "src/app/entity/user/user.actions";
+import { UserService } from "src/app/entity/user/user.service";
 
 @Component({
     selector: 'app-home',
@@ -12,16 +14,20 @@ import { Observable } from "rxjs";
 export class HomeComponent implements OnInit {
 
     public user: User; 
-    public getState: Observable<any>;
+    public userState: Observable<any>;
     
     constructor(
+        private userService: UserService,
         private store: Store<AppState>
     ) {
-        this.getState = this.store.select(selectAuthState);
+        this.userState = this.store.select(selectUserState);
     }
 
     ngOnInit() {
-        this.getState.subscribe((state) => {
+        this.userService.loadCurrentUser();
+
+        // this.store.dispatch(new GetCurrentUser);
+        this.userState.subscribe((state) => {
             this.user = state.user;
         });
     };

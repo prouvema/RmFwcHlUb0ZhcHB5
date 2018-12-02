@@ -3,6 +3,7 @@ package com.fappy.javamodule.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,6 +27,26 @@ public class UserService implements UserDetailsService {
 		return new org.springframework.security.core.userdetails.User(user.get().getUsername(),
 				user.get().getPassword(), user.get().isEnabled(), user.get().isAccountNonExpired(),
 				user.get().isCredentialsNonExpired(), user.get().isAccountNonLocked(), user.get().getAuthorities());
+	}
+	
+	/**
+	 * Find the current logged user from the security context.
+	 * 
+	 * @return
+	 * @throws LMSException
+	 */
+	public User findLoggedUser() {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return this.findUserByUsername(userDetails.getUsername()).get();
+	}
+	
+	/**
+	 * Find a user by his username equals to his email.
+	 * @param username
+	 * @return
+	 */
+	public Optional<User> findUserByUsername(String username) {
+		return this.userRepository.findUserByUsername(username);
 	}
 	
 }

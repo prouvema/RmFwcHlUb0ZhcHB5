@@ -43,7 +43,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 			.authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
 			.accessTokenValiditySeconds(ACCESS_TOKEN_VALIDITY_SECONDS)
 			.refreshTokenValiditySeconds(FREFRESH_TOKEN_VALIDITY_SECONDS)
-			.resourceIds("oauth2-resource");
+			.resourceIds("resource_id");
 	}
 
 	@Override
