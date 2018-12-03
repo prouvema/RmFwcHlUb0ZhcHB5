@@ -10,12 +10,14 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fappy.javamodule.domain.entity.space.SpaceSlot;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -36,8 +38,11 @@ public class User extends AbstractEntity implements UserDetails {
 	@Column(nullable = false)
 	private boolean enabled = false;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Profile profile;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<SpaceSlot> slotSpaces;
 	
 	@JoinTable(
 			name = "user_application_role_join", 
@@ -138,6 +143,14 @@ public class User extends AbstractEntity implements UserDetails {
 
 	public void setCredentialsNonExpired(boolean credentialsNonExpired) {
 		this.credentialsNonExpired = credentialsNonExpired;
+	}
+
+	public Set<SpaceSlot> getSlotSpaces() {
+		return slotSpaces;
+	}
+
+	public void setSlotSpaces(Set<SpaceSlot> slotSpaces) {
+		this.slotSpaces = slotSpaces;
 	}
     
 }

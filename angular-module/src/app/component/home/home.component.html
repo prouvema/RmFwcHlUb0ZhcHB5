@@ -2,4 +2,7 @@
     <div class="row d-flex justify-content-center">
         <p>{{user?.firstname}} {{user?.lastname | uppercase}}</p>
     </div>
+    <div *hasAnyRole="'ADMIN'">
+        blah
+    </div>
 </div>

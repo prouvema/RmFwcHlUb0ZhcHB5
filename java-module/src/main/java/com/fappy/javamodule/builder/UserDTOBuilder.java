@@ -20,6 +20,10 @@ public class UserDTOBuilder {
 	public UserDTOBuilder withUser(User user) {
 		
 		this.dto.setUsername(user.getUsername());
+		user.getApplicationRoles().stream()
+			.map(role -> role.getName())
+			.forEach(roleName -> dto.getRoles().add(roleName));
+		
 		Profile profile = user.getProfile();
 		if (null != profile) {
 			this.dto.setFirstname(profile.getFirstname());

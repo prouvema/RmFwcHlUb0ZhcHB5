@@ -11,6 +11,8 @@ import { map } from "rxjs/operators";
 @Injectable()
 export class UserService {
 
+    private user: User;
+
     constructor(
         private http: HttpClient,
         private store: Store<AppState>
@@ -21,6 +23,9 @@ export class UserService {
     //     return this.http.post<User>(url, { email, password });
     // }
 
+    public getCurrentUser(): User {
+        return JSON.parse(localStorage.getItem('user'));
+    }
 
     public loadCurrentUser() {
         const url = `${API_USER}/current`;
@@ -35,14 +40,8 @@ export class UserService {
                     };
                 })
             )
-            // .map((res: Response) => {
-            //     let body = res.json();
-            //     return body.data || {};
-            // })
-            // .map((user: any) => {
-            //     return { type: UserActionTypes.GET_CURRENT, user };
-            // })
             .subscribe((action) => {
+                localStorage.setItem('user', JSON.stringify(action.payload.user));
                 this.store.dispatch(action);
             });;
     }

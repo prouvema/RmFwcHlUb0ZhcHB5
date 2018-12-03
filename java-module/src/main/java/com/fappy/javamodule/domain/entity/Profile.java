@@ -2,6 +2,7 @@ package com.fappy.javamodule.domain.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Profile extends AbstractEntity {
@@ -15,6 +16,9 @@ public class Profile extends AbstractEntity {
 	
 	@Column(name = "phone_number", length = 12)
 	private String phoneNumber;
+	
+	@OneToOne(optional = false)
+	private User user;
 
 	public String getFirstname() {
 		return firstname;

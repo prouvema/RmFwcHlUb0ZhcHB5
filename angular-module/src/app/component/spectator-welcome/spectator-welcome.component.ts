@@ -3,8 +3,9 @@ import { Observable } from "rxjs";
 import { Store } from "@ngrx/store";
 import { User } from "src/app/entity/user/user.model";
 import { AppState, selectAuthState } from "src/app/app.states";
-import { LogIn } from "src/app/security/authentication.actions";
+import { LogIn, LogOut } from "src/app/security/authentication.actions";
 import { Authentication } from "src/app/security/anthentication.model";
+import { AuthenticationService } from "src/app/security/authentication.service";
 
 @Component({
     selector: 'app-spectator-welcome',
@@ -21,12 +22,16 @@ export class SpectatorWelcomeComponent implements OnInit {
     public rememberCredentials: boolean;
 
     constructor(
+        private authService: AuthenticationService,
         private store: Store<AppState>
     ) {
         this.authState = this.store.select(selectAuthState);
     }
 
     ngOnInit() {
+        if (this.authService.getToken()) {
+            this.store.dispatch(new LogOut);
+        }
         this.authState.subscribe((state) => {
             this.errorMessage = state.errorMessage;
         });

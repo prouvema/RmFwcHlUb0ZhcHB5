@@ -51,6 +51,7 @@ export class AuthenticationEffects {
   LogOut: Observable<any> = this.actions.pipe(
     ofType(AuthActionTypes.LOGOUT),
     tap(() => {
+      localStorage.removeItem('user');
       localStorage.removeItem('token');
       this.router.navigateByUrl('/welcome');
     })

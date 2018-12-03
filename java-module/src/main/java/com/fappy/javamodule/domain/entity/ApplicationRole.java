@@ -3,6 +3,7 @@ package com.fappy.javamodule.domain.entity;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -19,7 +20,7 @@ public class ApplicationRole extends AbstractEntity {
 			joinColumns = @JoinColumn(name = "application_role_id"), 
 			inverseJoinColumns = @JoinColumn(name = "application_access_id")
 			)
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<ApplicationAccess> applicationAccesses;
 
 	public String getName() {

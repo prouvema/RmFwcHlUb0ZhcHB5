@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, TemplateRef } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
@@ -19,9 +19,11 @@ import { AuthGuardService as AuthGuard } from './security/auth-guard.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule, MatInputModule, MatButtonModule, MatCheckboxModule, MatMenuModule, MatIconModule } from '@angular/material';
 import { UserService } from './entity/user/user.service';
+import { HasAnyRoleDirective } from './security/has-any-role.directive';
 
 @NgModule({
   declarations: [
+    HasAnyRoleDirective,
     AppComponent,
     SpectatorWelcomeComponent,
     HomeComponent,
