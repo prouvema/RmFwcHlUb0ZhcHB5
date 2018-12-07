@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { Observable } from "rxjs";
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Observable, Subscription } from "rxjs";
 import { Store } from "@ngrx/store";
 import { User } from "src/app/entity/user/user.model";
 import { AppState, selectAuthState } from "src/app/app.states";
-import { LogIn, LogOut } from "src/app/security/authentication.actions";
+import { LogIn, LogOut } from "src/app/security/authentication.action";
 import { Authentication } from "src/app/security/anthentication.model";
 import { AuthenticationService } from "src/app/security/authentication.service";
 
@@ -12,14 +12,19 @@ import { AuthenticationService } from "src/app/security/authentication.service";
     templateUrl: './spectator-welcome.component.html',
     styleUrls: ['./spectator-welcome.component.scss', '../../shared/global.component.scss']
 })
-export class SpectatorWelcomeComponent implements OnInit {
+export class SpectatorWelcomeComponent implements OnInit, OnDestroy {
 
     public email: string | null;
     public locker: string | null;
+
     public authState: Observable<any>;
+    public authSusbcription: Subscription;
+
     public errorMessage: string | null;
 
     public rememberCredentials: boolean;
+
+
 
     constructor(
         private authService: AuthenticationService,
@@ -32,10 +37,14 @@ export class SpectatorWelcomeComponent implements OnInit {
         if (this.authService.getToken()) {
             this.store.dispatch(new LogOut);
         }
-        this.authState.subscribe((state) => {
+        this.authSusbcription = this.authState.subscribe((state) => {
             this.errorMessage = state.errorMessage;
         });
     };
+
+    ngOnDestroy(): void {
+        this.authSusbcription.unsubscribe();
+    }
 
     public onSubmit(): void {
         const payload: Authentication = {

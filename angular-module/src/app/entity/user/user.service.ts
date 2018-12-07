@@ -7,6 +7,7 @@ import { UserActionTypes } from "./user.actions";
 import { Store } from "@ngrx/store";
 import { AppState } from "src/app/app.states";
 import { map } from "rxjs/operators";
+import { AccessesActionTypes } from "src/app/security/access/accesses.action";
 
 @Injectable()
 export class UserService {
@@ -43,6 +44,22 @@ export class UserService {
             .subscribe((action) => {
                 localStorage.setItem('user', JSON.stringify(action.payload.user));
                 this.store.dispatch(action);
-            });;
+            });
+    }
+
+    public loadAccesses(): void {
+        const url = `${API_USER}/accesses`;
+        this.http.get<string[]>(url)
+            .pipe(
+                map((accesses: string[]) => {
+                    return {
+                        type: AccessesActionTypes.GET,
+                        payload: accesses
+                    };
+                })
+            )
+            .subscribe((action) => {
+                this.store.dispatch(action);
+            });
     }
 }

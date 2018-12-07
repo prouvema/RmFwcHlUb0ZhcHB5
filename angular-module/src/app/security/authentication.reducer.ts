@@ -1,5 +1,4 @@
-import { User } from '../entity/user/user.model';
-import { AuthActionTypes, All } from './authentication.actions';
+import { AuthActionTypes, All } from './authentication.action';
 
 export type Action = All;
 

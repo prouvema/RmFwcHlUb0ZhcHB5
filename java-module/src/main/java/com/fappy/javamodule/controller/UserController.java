@@ -1,5 +1,8 @@
 package com.fappy.javamodule.controller;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +28,23 @@ public class UserController {
 				.withUser(currentUser)
 				.build();
 		return ResponseEntity.ok(userDTO);
+	}
+	
+	@GetMapping(path="accesses")
+	public ResponseEntity<Set<String>> findAccesses() {
+		User currentUser = this.userService.findLoggedUser();
+		
+		Set<String> accesses = new HashSet<>();
+		currentUser.getApplicationRoles().stream()
+			.forEach(role -> {
+				role.getApplicationAccesses().stream()
+					.map(access -> access.getAuthority())
+					.filter(accessName -> !accesses.contains(accessName))
+					.forEach(accessName -> accesses.add(accessName));
+			});
+			
+		
+		return ResponseEntity.ok(accesses);
 	}
 	
 }

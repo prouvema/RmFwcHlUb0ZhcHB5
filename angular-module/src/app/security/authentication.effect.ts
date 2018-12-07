@@ -4,7 +4,8 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from "rxjs";
 import { catchError, map, switchMap, tap } from "rxjs/operators";
 import { AuthenticationService } from './authentication.service';
-import { AuthActionTypes, LogIn, LogInSuccess, LogInFailure, LogOut, Authenticated } from './authentication.actions';
+import { AuthActionTypes, LogIn, LogInSuccess, LogInFailure, Authenticated } from './authentication.action';
+import { UserService } from '../entity/user/user.service';
 
 @Injectable()
 export class AuthenticationEffects {
@@ -12,7 +13,8 @@ export class AuthenticationEffects {
   constructor(
     private actions: Actions,
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) { }
 
   @Effect()
@@ -38,6 +40,7 @@ export class AuthenticationEffects {
     ofType(AuthActionTypes.LOGIN_SUCCESS),
     tap((action) => {
       localStorage.setItem('token', action.payload.token);
+      this.userService.loadAccesses();
       this.router.navigateByUrl('/home');
     })
   );

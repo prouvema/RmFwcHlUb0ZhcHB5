@@ -1,21 +1,22 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { AppState, selectUserState } from "src/app/app.states";
-import { LogOut } from "src/app/security/authentication.actions";
 import { User } from "src/app/entity/user/user.model";
-import { Observable } from "rxjs";
-import { GetCurrentUser } from "src/app/entity/user/user.actions";
+import { Observable, Subscription } from "rxjs";
 import { UserService } from "src/app/entity/user/user.service";
 
 @Component({
-    selector: 'app-home',
-    templateUrl: './home.component.html'
+    selector: 'app-dashboard-user',
+    templateUrl: './dashboard-user.component.html',
+    styleUrls: ['./dashboard-user.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class DashboardUserComponent implements OnInit, OnDestroy {
 
     public user: User; 
+
     public userState: Observable<any>;
-    
+    public userSubscription: Subscription;
+
     constructor(
         private userService: UserService,
         private store: Store<AppState>
@@ -25,9 +26,12 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.userService.loadCurrentUser();
-
-        this.userState.subscribe((state) => {
+        this.userSubscription = this.userState.subscribe((state) => {
             this.user = state.user;
         });
     };
+
+    ngOnDestroy(): void {
+        this.userSubscription.unsubscribe();
+    }
 }
