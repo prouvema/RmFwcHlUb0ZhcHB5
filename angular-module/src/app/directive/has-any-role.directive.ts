@@ -1,6 +1,5 @@
 import { Directive, Input, OnInit, TemplateRef, ViewContainerRef, OnDestroy } from "@angular/core";
 import { Observable, Subscription } from "rxjs";
-import { UserService } from "../entity/user/user.service";
 import { Store } from "@ngrx/store";
 import { AppState, selectAccessesState } from "../app.states";
 
@@ -14,6 +13,8 @@ export class HasAnyRoleDirective implements OnInit, OnDestroy {
     public accessesState: Observable<any>;
     public accessesSubscription: Subscription;
 
+    public previousAccesses: string[] = [];
+
     constructor(
         private store: Store<AppState>,
         private templateRef: TemplateRef<any>,
@@ -24,7 +25,10 @@ export class HasAnyRoleDirective implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.accessesSubscription = this.accessesState.subscribe((state) => {
-            this.applyPermission(state.accesses);
+            // if (!this.arraysAreEqual(this.previousAccesses, state.accesses)) {
+            //     this.previousAccesses = state.accesses;
+                this.applyPermission(state.accesses);
+            // }
         });
     }
 
@@ -50,7 +54,13 @@ export class HasAnyRoleDirective implements OnInit, OnDestroy {
         } else if (this.hasAnyRole instanceof Array) {
             hasPermission = this.hasAnyRole.filter(role => accesses.includes(role)).length != 0;
         }
-        console.log('hasPermission', hasPermission);
         return hasPermission;
     }
+
+    // private arraysAreEqual(a0: string[], a1: string[]) {
+    //     if (a0.length !== a1.length) {
+    //         return false;
+    //     }
+    //     return !a0.filter(str => !a1.includes(str)).length;
+    // }
 }

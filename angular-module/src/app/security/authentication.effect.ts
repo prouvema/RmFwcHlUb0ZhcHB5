@@ -6,6 +6,9 @@ import { catchError, map, switchMap, tap } from "rxjs/operators";
 import { AuthenticationService } from './authentication.service';
 import { AuthActionTypes, LogIn, LogInSuccess, LogInFailure, Authenticated } from './authentication.action';
 import { UserService } from '../entity/user/user.service';
+import { AccessesActionTypes } from './access/accesses.action';
+import { Store } from '@ngrx/store';
+import { AppState } from '../app.states';
 
 @Injectable()
 export class AuthenticationEffects {
@@ -14,7 +17,8 @@ export class AuthenticationEffects {
     private actions: Actions,
     private authService: AuthenticationService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private store: Store<AppState>
   ) { }
 
   @Effect()
@@ -54,9 +58,12 @@ export class AuthenticationEffects {
   LogOut: Observable<any> = this.actions.pipe(
     ofType(AuthActionTypes.LOGOUT),
     tap(() => {
-      localStorage.removeItem('user');
-      localStorage.removeItem('token');
       this.router.navigateByUrl('/welcome');
+      localStorage.removeItem('token');
+      this.store.dispatch({
+        type: AccessesActionTypes.GET,
+        payload: []
+      });
     })
   );
 

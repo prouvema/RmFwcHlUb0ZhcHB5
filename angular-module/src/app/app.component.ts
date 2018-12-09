@@ -10,34 +10,8 @@ import { UserService } from './entity/user/user.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent {
 
-  public authenticated: boolean;
-
-  public authState: Observable<any>;
-  public authSubscription: Subscription;
-
-  constructor(
-    private userService: UserService,
-    private store: Store<AppState>
-  ) {
-    this.authState = this.store.select(selectAuthState);
-  }
-
-  ngOnInit(): void {
-    this.userService.loadAccesses();
-    this.store.dispatch(new IsAuthenticated());
-    this.authSubscription = this.authState.subscribe((state) => {
-      this.authenticated = state.authenticated;
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.authSubscription.unsubscribe();
-  }
-
-  public logOut(): void {
-    this.store.dispatch(new LogOut);
-  }
+  constructor() { }
 
 }

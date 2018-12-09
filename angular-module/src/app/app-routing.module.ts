@@ -4,11 +4,10 @@ import { SpectatorWelcomeComponent } from './component/spectator-welcome/spectat
 import { UnauthorizedComponent } from './component/unauthorized/unauthorized.component';
 import { AuthGuardService as AuthGuard } from './security/auth-guard.service';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
+import { EspacesComponent } from './component/admin/espaces/espaces.component';
 
 const routes: Routes = [
-  {
-    path: 'welcome',
-    component: SpectatorWelcomeComponent,
+  { path: 'welcome', component: SpectatorWelcomeComponent,
     // children: [{
     //   path: 'legacy/user/:name',
     //   redirectTo: 'user/:name'
@@ -17,20 +16,10 @@ const routes: Routes = [
     //   component: User
     // }]
   },
-  {
-    path: 'home',
-    component: DashboardComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'unauthorized',
-    component: UnauthorizedComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: '**',
-    redirectTo: 'welcome'
-  }
+  { path: 'home', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'espaces', component: EspacesComponent, canActivate: [AuthGuard] },
+  { path: 'unauthorized', component: UnauthorizedComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: 'welcome' }
 ];
 
 @NgModule({

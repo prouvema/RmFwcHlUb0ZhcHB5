@@ -1,14 +1,15 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
+import { User } from "src/app/entity/user/user.model";
 
 @Component({
-    selector: 'app-dashboard-admin',
+    selector: 'body-dashboard-admin',
     templateUrl: './dashboard-admin.component.html',
     styleUrls: ['./dashboard-admin.component.scss']
 })
 export class DashboardAdminComponent implements OnInit {
 
-    // public user: User; 
-    // public userState: Observable<any>;
+    @Input()
+    public user: User;
     
     constructor(
         // private userService: UserService,

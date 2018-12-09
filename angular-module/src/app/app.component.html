@@ -1,12 +1,2 @@
-<div class="row d-flex justify-content-end">
-    <!-- <div class="offset-md-11 col-md-1"> -->
-        <button *ngIf="authenticated" class="mx-5 my-2" mat-icon-button [matMenuTriggerFor]="settings">
-            <mat-icon>settings</mat-icon>
-        </button>
-    <!-- </div> -->
-</div>
-<mat-menu #settings="matMenu">
-    <button mat-menu-item (click)="logOut()">Se déconnecter</button>
-</mat-menu>
-
+<app-setting></app-setting>
 <router-outlet></router-outlet>

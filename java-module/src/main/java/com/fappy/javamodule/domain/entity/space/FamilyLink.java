@@ -9,4 +9,14 @@ import com.fappy.javamodule.domain.entity.AbstractEntity;
 @Table(name = "family_link")
 public class FamilyLink extends AbstractEntity {
 
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 }

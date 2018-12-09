@@ -28,7 +28,7 @@ public class User extends AbstractEntity implements UserDetails {
 	 */
 	private static final long serialVersionUID = 88958501666776965L;
 
-	@Column(name = "email", nullable = false)
+	@Column(name = "email", nullable = false, length = 191, unique = true)
     private String username;
 	
 	@JsonIgnore

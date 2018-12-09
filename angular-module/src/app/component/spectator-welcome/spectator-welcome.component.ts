@@ -8,9 +8,9 @@ import { Authentication } from "src/app/security/anthentication.model";
 import { AuthenticationService } from "src/app/security/authentication.service";
 
 @Component({
-    selector: 'app-spectator-welcome',
+    selector: 'body-spectator-welcome',
     templateUrl: './spectator-welcome.component.html',
-    styleUrls: ['./spectator-welcome.component.scss', '../../shared/global.component.scss']
+    styleUrls: ['./spectator-welcome.component.scss']
 })
 export class SpectatorWelcomeComponent implements OnInit, OnDestroy {
 

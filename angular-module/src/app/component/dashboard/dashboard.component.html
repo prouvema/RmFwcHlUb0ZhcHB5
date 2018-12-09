@@ -1,2 +1,2 @@
-<app-dashboard-admin *hasAnyRole="'DASHBOARD_ADMIN'"></app-dashboard-admin>
-<app-dashboard-user *hasAnyRole="'BASIC_USER'"></app-dashboard-user>
+<body-dashboard-admin *hasAnyRole="'DASHBOARD_ADMIN'" [user]="user"></body-dashboard-admin>
+<body-dashboard-user *hasAnyRole="'BASIC_USER'" [user]="user"></body-dashboard-user>

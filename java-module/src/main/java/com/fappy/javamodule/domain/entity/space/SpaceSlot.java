@@ -41,6 +41,12 @@ public class SpaceSlot extends AbstractEntity {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "validation_state", nullable = false)
 	private ValidationState validationState;
+	
+	@Column(name = "token_validation", length = 191, unique = true)
+	private String tokenValidation;
+	
+	@Column(name = "urgence_contact", nullable = false)
+	private boolean urgenceContact = false;
 
 	public User getUser() {
 		return user;
@@ -80,6 +86,22 @@ public class SpaceSlot extends AbstractEntity {
 
 	public void setValidationState(ValidationState validationState) {
 		this.validationState = validationState;
+	}
+
+	public String getTokenValidation() {
+		return tokenValidation;
+	}
+
+	public void setTokenValidation(String tokenValidation) {
+		this.tokenValidation = tokenValidation;
+	}
+
+	public boolean isUrgenceContact() {
+		return urgenceContact;
+	}
+
+	public void setUrgenceContact(boolean urgenceContact) {
+		this.urgenceContact = urgenceContact;
 	}
 	
 }

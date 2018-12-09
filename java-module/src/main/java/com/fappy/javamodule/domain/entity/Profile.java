@@ -17,6 +17,8 @@ public class Profile extends AbstractEntity {
 	@Column(name = "phone_number", length = 12)
 	private String phoneNumber;
 	
+	private String address;
+	
 	@OneToOne(optional = false)
 	private User user;
 
@@ -50,6 +52,22 @@ public class Profile extends AbstractEntity {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 }

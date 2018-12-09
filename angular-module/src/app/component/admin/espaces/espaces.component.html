@@ -1,0 +1,14 @@
+<div class="container">
+        <h1>Les espaces</h1>
+        <div class="alert alert-secondary text-center" role="alert">
+            Aucun espace
+        </div>
+        <mat-nav-list>
+            <mat-list-item *ngFor="let space of spaces">
+                <a matLine href=".">{{ space.name }}</a>
+                <button mat-icon-button>
+                    <mat-icon>info</mat-icon>
+                </button>
+            </mat-list-item>
+        </mat-nav-list>
+</div>

@@ -12,8 +12,6 @@ import { AccessesActionTypes } from "src/app/security/access/accesses.action";
 @Injectable()
 export class UserService {
 
-    private user: User;
-
     constructor(
         private http: HttpClient,
         private store: Store<AppState>
@@ -24,9 +22,9 @@ export class UserService {
     //     return this.http.post<User>(url, { email, password });
     // }
 
-    public getCurrentUser(): User {
-        return JSON.parse(localStorage.getItem('user'));
-    }
+    // public getCurrentUser(): User {
+    //     return JSON.parse(localStorage.getItem('user'));
+    // }
 
     public loadCurrentUser() {
         const url = `${API_USER}/current`;
@@ -42,7 +40,7 @@ export class UserService {
                 })
             )
             .subscribe((action) => {
-                localStorage.setItem('user', JSON.stringify(action.payload.user));
+                // localStorage.setItem('user', JSON.stringify(action.payload.user));
                 this.store.dispatch(action);
             });
     }
