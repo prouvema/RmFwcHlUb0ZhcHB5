@@ -1,5 +1,6 @@
 package com.fappy.javamodule.domain.entity.space;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -11,17 +12,21 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 import com.fappy.javamodule.domain.entity.AbstractEntity;
 import com.fappy.javamodule.domain.entity.User;
 
 @Entity
-@Table(name = "space_slot")
+@Table(name = "space_slot", uniqueConstraints={@UniqueConstraint(columnNames={"token_validation"})})
 public class SpaceSlot extends AbstractEntity {
 
+	@NotNull
 	@ManyToOne(optional = false)
 	private User user;
 	
+	@NotNull
 	@JoinColumn(name = "family_space_id")
 	@ManyToOne(optional = false)
 	private FamilySpace familySpace;
@@ -32,19 +37,22 @@ public class SpaceSlot extends AbstractEntity {
 			inverseJoinColumns = @JoinColumn(name = "space_role_id")
 			)
 	@ManyToMany
-	private Set<SpaceRole> spaceRoles;
+	private Set<SpaceRole> spaceRoles = new HashSet<>();
 	
+	@NotNull
 	@JoinColumn(name = "family_link_id")
 	@ManyToOne(optional = false)
 	private FamilyLink familyLink;
 	
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "validation_state", nullable = false)
 	private ValidationState validationState;
 	
-	@Column(name = "token_validation", length = 191, unique = true)
+	@Column(name = "token_validation", length = 191)
 	private String tokenValidation;
 	
+	@NotNull
 	@Column(name = "urgence_contact", nullable = false)
 	private boolean urgenceContact = false;
 

@@ -2,18 +2,11 @@ package com.fappy.javamodule.dto;
 
 import java.util.Set;
 
-public class FamilySpaceDTO {
+public class FamilySpaceDTO extends AbstractDTO {
 
-	private long id;
 	private String name;
 	private Set<SpaceSlotDTO> spaceSlots;
 	
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
 	public String getName() {
 		return name;
 	}

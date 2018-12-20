@@ -1,4 +1,4 @@
-package com.fappy.javamodule.builder;
+package com.fappy.javamodule.builder.dto;
 
 import java.util.stream.Collectors;
 
@@ -16,6 +16,10 @@ public class FamilySpaceDTOBuilder {
 	
 	public FamilySpaceDTO lightBuild() {
 		this.dto.setSpaceSlots(null);
+		return this.dto;
+	}
+	
+	public FamilySpaceDTO build() {
 		return this.dto;
 	}
 	

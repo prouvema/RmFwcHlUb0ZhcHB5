@@ -15,7 +15,8 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
                 if (response instanceof HttpErrorResponse && response.status === 401) {
                     this.router.navigateByUrl('/unauthorized');
                 }
-                return Observable.throw(response);
+                console.log('error', response);
+                return Observable.throw(JSON.parse(response));
             })
         )
     }

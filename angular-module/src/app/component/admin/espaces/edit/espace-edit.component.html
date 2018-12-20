@@ -1,0 +1,84 @@
+<div class="container" *ngIf="space">
+    <h1>{{ space.id ? 'Editer' : 'Ajouter'}} un espace de famille</h1>
+    <hr>
+    <form #spaceForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+
+        <div class="row">
+            <div class="col-lg-5 offset-lg-1">
+                <mat-form-field class="w-100">
+                    <input matInput [(ngModel)]="space.name" name="name" required id="name" placeholder="Nom">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- SPACE SLOT EDIT -->
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+                <h5>Les slots</h5>
+                <hr>
+                <div class="row" *ngFor="let spaceSlot of space.spaceSlots">
+                    <div class="col-md-12">
+
+                        <mat-form-field *ngIf="!spaceSlot.id">
+                            <mat-select required placeholder="Utilisateur" [(ngModel)]="spaceSlot.user" [(value)]="spaceSlot.user"
+                                name="user">
+                                <mat-option *ngFor="let user of users" [value]="user">
+                                    {{user.username}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <span *ngIf="spaceSlot.id">
+                            {{spaceSlot.user.username}}
+                        </span>
+
+                        <mat-form-field>
+                            <mat-select required placeholder="Lien de famille" [(ngModel)]="spaceSlot.familyLink"
+                                [(value)]="spaceSlot.familyLink" name="familyLink">
+                                <mat-option *ngFor="let familyLink of familyLinks" [value]="familyLink">
+                                    {{familyLink}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-select required placeholder="Etat de validation" [(ngModel)]="spaceSlot.validationState"
+                                name="validationState" [(value)]="spaceSlot.validationState">
+                                <mat-option value="WAITING">
+                                    En attente
+                                </mat-option>
+                                <mat-option value="VALID">
+                                    Validé
+                                </mat-option>
+                                <mat-option value="REFUSE">
+                                    Refusé
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input matInput [(ngModel)]="spaceSlot.tokenValidation" name="tokenValidation" placeholder="Token de validation">
+                        </mat-form-field>
+                        
+                        <mat-slide-toggle [(ngModel)]="spaceSlot.urgenceContact" name="urgenceContact">Contact
+                            d'urgence</mat-slide-toggle>
+
+                    </div>
+                </div>
+                <div *ngIf="!space.spaceSlots.length" class="alert alert-secondary text-center" role="alert">
+                    Aucun slot
+                </div>
+                <hr>
+                <div class="row d-flex justify-content-center">
+                    <button type="button" mat-raised-button (click)="addSpaceSlot()">Ajouter un slot</button>
+                </div>
+            </div>
+        </div>
+        <!--  -->
+
+        <div class="row d-flex justify-content-end">
+            <button mat-raised-button type="submit" class="valid-button" [disabled]="!spaceForm.form.valid">{{ space.id
+                ? 'Valider' : 'Ajouter'}}</button>
+        </div>
+    </form>
+</div>

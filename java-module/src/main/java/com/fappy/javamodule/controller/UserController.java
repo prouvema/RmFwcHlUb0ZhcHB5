@@ -1,7 +1,9 @@
 package com.fappy.javamodule.controller;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fappy.javamodule.builder.UserDTOBuilder;
+import com.fappy.javamodule.builder.dto.UserDTOBuilder;
 import com.fappy.javamodule.domain.entity.User;
 import com.fappy.javamodule.dto.UserDTO;
 import com.fappy.javamodule.service.UserService;
@@ -20,6 +22,15 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@GetMapping
+	public ResponseEntity<Set<UserDTO>> findAllusers() {
+		List<User> users = this.userService.findAllUsers();
+		Set<UserDTO> userDTOs = users.stream()
+				.map(user -> new UserDTOBuilder() .withUser(user).build())
+				.collect(Collectors.toSet());
+		return ResponseEntity.ok(userDTOs);
+	}
 	
 	@GetMapping(path="current")
 	public ResponseEntity<?> findCurrentUser() {

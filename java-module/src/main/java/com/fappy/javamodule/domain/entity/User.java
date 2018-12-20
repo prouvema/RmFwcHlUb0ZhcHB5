@@ -13,6 +13,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +25,7 @@ import com.fappy.javamodule.domain.entity.space.SpaceSlot;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(uniqueConstraints={@UniqueConstraint(columnNames={"email"})})
 public class User extends AbstractEntity implements UserDetails {
 
 	/**
@@ -28,13 +33,17 @@ public class User extends AbstractEntity implements UserDetails {
 	 */
 	private static final long serialVersionUID = 88958501666776965L;
 
-	@Column(name = "email", nullable = false, length = 191, unique = true)
+	@NotNull
+	@Size(max = 191)
+	@Column(name = "email", nullable = false, length = 191)
     private String username;
 	
 	@JsonIgnore
+	@NotNull
 	@Column(nullable = false)
 	private String password;
 	
+	@NotNull
 	@Column(nullable = false)
 	private boolean enabled = false;
 	
@@ -52,12 +61,15 @@ public class User extends AbstractEntity implements UserDetails {
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<ApplicationRole> applicationRoles;
 	
+	@NotNull
 	@Column(name = "account_non_expired", nullable = false)
 	private boolean accountNonExpired = true;
 
+	@NotNull
 	@Column(name = "account_non_locked", nullable = false)
 	private boolean accountNonLocked = true;
 	
+	@NotNull
 	@Column(name = "credentials_non_expired", nullable = false)
 	private boolean credentialsNonExpired = true;
 	

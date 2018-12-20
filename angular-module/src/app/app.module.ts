@@ -16,7 +16,7 @@ import { UnauthorizedInterceptor } from './security/unauthorized.interceptor';
 import { UnauthorizedComponent } from './component/unauthorized/unauthorized.component';
 import { AuthGuardService as AuthGuard } from './security/auth-guard.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatFormFieldModule, MatInputModule, MatButtonModule, MatCheckboxModule, MatMenuModule, MatIconModule, MatListModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatButtonModule, MatCheckboxModule, MatMenuModule, MatIconModule, MatListModule, MatTableModule, MatSelectModule, MatSlideToggleModule } from '@angular/material';
 import { UserService } from './entity/user/user.service';
 import { HasAnyRoleDirective } from './directive/has-any-role.directive';
 import { DashboardAdminComponent } from './component/dashboard/dashboard-admin/dashboard-admin.component';
@@ -25,6 +25,9 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { SettingComponent } from './component/setting/setting.component';
 import { EspacesComponent } from './component/admin/espaces/espaces.component';
 import { SpaceService } from './entity/space/space.service';
+import { EspaceEditComponent } from './component/admin/espaces/edit/espace-edit.component';
+import { ReferencesComponent } from './component/admin/references/references.component';
+import { ReferenceService } from './entity/reference/reference.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,9 @@ import { SpaceService } from './entity/space/space.service';
     DashboardAdminComponent,
     UnauthorizedComponent,
     SettingComponent,
-    EspacesComponent
+    EspacesComponent,
+    EspaceEditComponent,
+    ReferencesComponent
   ],
   imports: [
     MatFormFieldModule,
@@ -46,6 +51,9 @@ import { SpaceService } from './entity/space/space.service';
     MatMenuModule,
     MatIconModule,
     MatListModule,
+    MatTableModule,
+    MatSelectModule,
+    MatSlideToggleModule,
     
     BrowserModule,
     HttpClientModule,
@@ -63,6 +71,7 @@ import { SpaceService } from './entity/space/space.service';
     AuthGuard,
     UserService,
     SpaceService,
+    ReferenceService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

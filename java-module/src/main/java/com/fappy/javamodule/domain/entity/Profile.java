@@ -3,22 +3,31 @@ package com.fappy.javamodule.domain.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Profile extends AbstractEntity {
 	
+	@Size(max = 124)
+	@Column(length = 124)
 	private String firstname;
 	
+	@Size(max = 124)
+	@Column(length = 124)
 	private String lastname;
 	
+	@Size(max = 12)
 	@Column(name = "mobile_number", length = 12)
 	private String mobileNumber;
 	
+	@Size(max = 12)
 	@Column(name = "phone_number", length = 12)
 	private String phoneNumber;
 	
 	private String address;
 	
+	@NotNull
 	@OneToOne(optional = false)
 	private User user;
 

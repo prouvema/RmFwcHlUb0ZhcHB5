@@ -1,0 +1,29 @@
+<div class="container">
+    <h1>Les liens de familles</h1>
+    <hr>
+    <div class="row">
+        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 d-flex justify-content-center" *ngFor="let linkName of familyLinks">
+            {{linkName}}
+        </div>
+    </div>
+    <div *ngIf="!familyLinks.length" class="alert alert-secondary text-center" role="alert">
+        Aucun lien de famille
+    </div>
+    <hr>
+    <form novalidate #familyLinkForm="ngForm" (ngSubmit)="onSubmitFamilyLink()" novalidate>
+        <div class="row">
+            <div class="col-md-4 d-flex justify-content-center align-items-center">
+                <h6>Ajouter un lien de famille</h6>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field class="w-100">
+                    <input matInput [(ngModel)]="familyLink" name="familyLink" required placeholder="Lien de famille">
+                </mat-form-field>
+            </div>
+            <div class="col-lg-2 d-flex align-items-center justify-content-end">
+                <button mat-raised-button type="submit" class="valid-button" [disabled]="!familyLinkForm.form.valid">Ajouter</button>
+            </div>
+        </div>
+    </form>
+
+</div>

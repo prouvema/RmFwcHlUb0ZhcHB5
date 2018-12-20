@@ -6,6 +6,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fappy.javamodule.domain.entity.AbstractEntity;
 import com.fappy.javamodule.domain.entity.User;
@@ -14,13 +16,17 @@ import com.fappy.javamodule.domain.entity.User;
 @Table(name = "space_message")
 public class SpaceMessage extends AbstractEntity {
 
-	@Column(nullable = false)
+	@NotNull
+	@Size(max = 1024)
+	@Column(nullable = false, length = 1024)
 	private String content;
 	
+	@NotNull
 	@JoinColumn(name = "family_space_id")
 	@ManyToOne(optional = false)
 	private FamilySpace familySpace;
 	
+	@NotNull
 	@OneToOne(optional = false)
 	private User user;
 

@@ -17,14 +17,10 @@ export class UserService {
         private store: Store<AppState>
     ) { }
 
-    // public signUp(email: string, password: string): Observable<User> {
-    //     const url = `${API_USER}/register`;
-    //     return this.http.post<User>(url, { email, password });
-    // }
-
-    // public getCurrentUser(): User {
-    //     return JSON.parse(localStorage.getItem('user'));
-    // }
+    public getAllUsers(): Observable<User[]> {
+        const url = `${API_USER}`;
+        return this.http.get<User[]>(url);
+    }
 
     public loadCurrentUser() {
         const url = `${API_USER}/current`;

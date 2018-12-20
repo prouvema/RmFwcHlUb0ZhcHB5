@@ -9,6 +9,7 @@ import { SpaceService } from "src/app/entity/space/space.service";
 })
 export class EspacesComponent implements OnInit, OnDestroy {
 
+    public displayedColumns: string[] = ['name'];
     public spaces: LightSpace[] = [];
 
     constructor(

@@ -24,8 +24,6 @@ export class SpectatorWelcomeComponent implements OnInit, OnDestroy {
 
     public rememberCredentials: boolean;
 
-
-
     constructor(
         private authService: AuthenticationService,
         private store: Store<AppState>

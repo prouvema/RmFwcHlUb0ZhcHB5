@@ -1,5 +1,6 @@
 package com.fappy.javamodule.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class UserService implements UserDetailsService {
 	/**
 	 * Find the current logged user from the security context.
 	 * 
-	 * @return
+	 * @return user
 	 * @throws LMSException
 	 */
 	public User findLoggedUser() {
@@ -43,10 +44,18 @@ public class UserService implements UserDetailsService {
 	/**
 	 * Find a user by his username equals to his email.
 	 * @param username
-	 * @return
+	 * @return optional of user
 	 */
 	public Optional<User> findUserByUsername(String username) {
 		return this.userRepository.findUserByUsername(username);
+	}
+	
+	/**
+	 * Find all the users from the database.
+	 * @return list of users
+	 */
+	public List<User> findAllUsers() {
+		return this.userRepository.findAll();
 	}
 	
 }

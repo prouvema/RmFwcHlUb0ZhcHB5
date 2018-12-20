@@ -10,6 +10,7 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,23 +26,28 @@ public abstract class AbstractEntity {
 	private long id;
 
 	/** The create time. */
+	@NotNull
 	@Column(name = "create_time", nullable = false, updatable = false)
 	private LocalDateTime createTime;
 
 	/** The create user. */
+	@NotNull
 	@Column(name = "create_user", nullable = false, updatable = false)
 	private String createUser;
 
 	/** The update time. */
+	@NotNull
 	@Column(name = "update_time", nullable = false)
 	private LocalDateTime updateTime;
 
 	/** The update user. */
+	@NotNull
 	@Column(name = "update_user", nullable = false)
 	private String updateUser;
 
 	/** The version number. */
 	@Version
+	@NotNull
 	@Column(name = "version_number", nullable = false)
 	private Long versionNumber;
 

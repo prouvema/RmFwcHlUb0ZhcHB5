@@ -1,4 +1,4 @@
-package com.fappy.javamodule.builder;
+package com.fappy.javamodule.builder.dto;
 
 import com.fappy.javamodule.domain.entity.Profile;
 import com.fappy.javamodule.domain.entity.User;

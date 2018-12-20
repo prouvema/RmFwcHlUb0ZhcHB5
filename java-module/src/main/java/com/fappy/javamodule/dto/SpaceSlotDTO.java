@@ -1,20 +1,16 @@
 package com.fappy.javamodule.dto;
 
-public class SpaceSlotDTO {
+import java.util.List;
 
-	private long id;
+public class SpaceSlotDTO extends AbstractDTO {
+
 	private UserDTO user;
 	private String familyLink;
 	private String validationState;
 	private String tokenValidation;
 	private boolean urgenceContact;
+	private List<String> roles;
 	
-	public long getId() {
-		return id;
-	}
-	public void setId(long id) {
-		this.id = id;
-	}
 	public UserDTO getUser() {
 		return user;
 	}
@@ -44,6 +40,12 @@ public class SpaceSlotDTO {
 	}
 	public void setUrgenceContact(boolean urgenceContact) {
 		this.urgenceContact = urgenceContact;
+	}
+	public List<String> getRoles() {
+		return roles;
+	}
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
 	}
 	
 }

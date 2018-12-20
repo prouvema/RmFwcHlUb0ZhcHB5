@@ -1,10 +1,12 @@
+
+$fappyColor: #3b3850;
+
 * {
     outline: none !important;
 }
 .valid-button {
-    background-color: #3b3850;
-    color: whitesmoke;
-
+    background-color: $fappyColor !important;
+    color: whitesmoke !important;
 }
 .mat-raised-button {
     font-size: 22px;
