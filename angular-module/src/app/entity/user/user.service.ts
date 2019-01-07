@@ -17,6 +17,11 @@ export class UserService {
         private store: Store<AppState>
     ) { }
 
+    public getAllByPageable(pageIndex: number, pageSize: number): Observable<any> {
+        const url = `${API_USER}/page/${pageIndex}/size/${pageSize}`;
+        return this.http.get<any>(url);
+    }
+
     public getAllUsers_ForSelect(): Observable<string[]> {
         const url = `${API_USER}/select`;
         return this.http.get<string[]>(url);

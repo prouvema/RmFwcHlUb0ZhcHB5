@@ -10,6 +10,8 @@ import { ReferencesComponent } from './component/admin/references/references.com
 import { RolesComponent } from './component/admin/roles/roles.component';
 import { DashboardSpaceComponent } from './component/dashboard/dashboard-space/dashboard-space.component';
 import { UrgenceContactsComponent } from './component/dashboard/dashboard-space/urgence-contacts/urgence-contacts.component';
+import { UsersComponent } from './component/admin/users/users.component';
+import { UserEditComponent } from './component/admin/users/edit/user-edit.component';
 
 const routes: Routes = [
   { path: 'welcome', component: SpectatorWelcomeComponent,
@@ -27,6 +29,9 @@ const routes: Routes = [
   { path: 'espaces', component: EspacesComponent, canActivate: [AuthGuard] },
   { path: 'espaces/edit', component: EspaceEditComponent, canActivate: [AuthGuard] },
   { path: 'espaces/edit/:id', component: EspaceEditComponent, canActivate: [AuthGuard] },
+  { path: 'utilisateurs', component: UsersComponent, canActivate: [AuthGuard] },
+  { path: 'utilisateurs/edit', component: UserEditComponent, canActivate: [AuthGuard] },
+  { path: 'utilisateurs/edit/:id', component: UserEditComponent, canActivate: [AuthGuard] },
   { path: 'references', component: ReferencesComponent, canActivate: [AuthGuard] },
   { path: 'roles', component: RolesComponent, canActivate: [AuthGuard] },
   { path: 'unauthorized', component: UnauthorizedComponent, canActivate: [AuthGuard] },

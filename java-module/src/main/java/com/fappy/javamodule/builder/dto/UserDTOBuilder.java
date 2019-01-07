@@ -22,7 +22,7 @@ public class UserDTOBuilder {
 		return this.dto;
 	}
 	
-	public UserDTO buildUrgenceContact() {
+	public UserDTO lightBuild() {
 		this.setUsername();
 		this.setFieldsByProfil();
 		return this.dto;

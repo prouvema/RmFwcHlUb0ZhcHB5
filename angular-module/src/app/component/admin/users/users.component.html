@@ -1,0 +1,40 @@
+<div class="container">
+
+    <div class="row d-flex align-items-center">
+        <h1>Les utilisateurs</h1>
+        <a mat-mini-fab class="valid-button ml-2" routerLink="/users/edit" routerLinkActive="active">
+            <mat-icon>add</mat-icon>
+        </a>
+    </div>
+
+    <section id="users">
+        <div>
+            <mat-table [dataSource]="users" class="w-100">
+
+                <ng-container matColumnDef="username">
+                    <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+                    <mat-cell *matCellDef="let user"> {{user.username}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="firstname">
+                    <mat-header-cell *matHeaderCellDef> Prénom </mat-header-cell>
+                    <mat-cell *matCellDef="let user"> {{user.firstname}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="lastname">
+                    <mat-header-cell *matHeaderCellDef> Nom </mat-header-cell>
+                    <mat-cell *matCellDef="let user"> {{user.lastname}} </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;" class="clickable" (click)="navigateToUser(row)"></mat-row>
+
+            </mat-table>
+            <mat-paginator (page)="pageEvent = searchUsers($event)" [pageIndex]="pageIndex" [length]="length"
+                [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+        </div>
+        <div *ngIf="!users.length" class="alert alert-secondary text-center" role="alert">
+            Aucun utilisateur
+        </div>
+    </section>
+
+</div>

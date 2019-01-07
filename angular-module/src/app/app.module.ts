@@ -37,6 +37,8 @@ import { UrgenceContactsComponent } from './component/dashboard/dashboard-space/
 import { MessageService } from './entity/message/message.service';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { UsersComponent } from './component/admin/users/users.component';
+import { UserEditComponent } from './component/admin/users/edit/user-edit.component';
 
 registerLocaleData(localeFr, 'fr-FR');
 
@@ -54,6 +56,8 @@ registerLocaleData(localeFr, 'fr-FR');
     SettingComponent,
     EspacesComponent,
     EspaceEditComponent,
+    UsersComponent,
+    UserEditComponent,
     ReferencesComponent,
     RolesComponent
   ],

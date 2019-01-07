@@ -22,12 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fappy.javamodule.builder.dto.FamilySpaceDTOBuilder;
-import com.fappy.javamodule.builder.dto.SpaceMessageDTOBuilder;
 import com.fappy.javamodule.builder.entity.FamilySpaceBuilder;
 import com.fappy.javamodule.domain.entity.space.FamilySpace;
-import com.fappy.javamodule.domain.entity.space.SpaceMessage;
 import com.fappy.javamodule.dto.FamilySpaceDTO;
-import com.fappy.javamodule.dto.SpaceMessageDTO;
 import com.fappy.javamodule.service.FamilySpaceService;
 import com.fappy.javamodule.service.ReferenceService;
 import com.fappy.javamodule.service.SpaceRoleService;

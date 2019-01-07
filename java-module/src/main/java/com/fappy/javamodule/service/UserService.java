@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,6 +30,10 @@ public class UserService implements UserDetailsService {
 		return new org.springframework.security.core.userdetails.User(user.get().getUsername(),
 				user.get().getPassword(), user.get().isEnabled(), user.get().isAccountNonExpired(),
 				user.get().isCredentialsNonExpired(), user.get().isAccountNonLocked(), user.get().getAuthorities());
+	}
+	
+	public Optional<User> findByUsername(String username) {
+		return userRepository.findUserByUsername(username);
 	}
 	
 	/**
@@ -65,6 +71,10 @@ public class UserService implements UserDetailsService {
 	 */
 	public List<User> findUrgenceContactsBySpaceId(long spaceId) {
 		return this.userRepository.findAllUsersBySpaceIdAndUrgenceContact(spaceId);
+	}
+
+	public Page<User> findAll(Pageable pageable) {
+		return userRepository.findAll(pageable);
 	}
 	
 }
