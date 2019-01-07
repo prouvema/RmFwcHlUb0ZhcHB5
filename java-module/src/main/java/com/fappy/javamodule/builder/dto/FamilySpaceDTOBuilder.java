@@ -7,6 +7,7 @@ import com.fappy.javamodule.dto.FamilySpaceDTO;
 
 public class FamilySpaceDTOBuilder {
 
+	private FamilySpace familySpace;
 	private FamilySpaceDTO dto;
 	
 	public FamilySpaceDTOBuilder() {
@@ -14,24 +15,35 @@ public class FamilySpaceDTOBuilder {
 		this.dto = new FamilySpaceDTO();
 	}
 	
-	public FamilySpaceDTO lightBuild() {
-		this.dto.setSpaceSlots(null);
-		return this.dto;
-	}
-	
-	public FamilySpaceDTO build() {
-		return this.dto;
-	}
-	
 	public FamilySpaceDTOBuilder withFamilySpace(FamilySpace familySpace) {
-		
-		this.dto.setId(familySpace.getId());
-		this.dto.setName(familySpace.getName());
-		this.dto.setSpaceSlots(familySpace.getSpaceSlots().stream()
-				.map(spaceSlot -> new SpaceSlotDTOBuilder().withSpaceSlot(spaceSlot).build())
-				.collect(Collectors.toSet()));
-		
+		this.familySpace = familySpace;
 		return this;
 	}
 	
+	public FamilySpaceDTO build() {
+		this.setCommonFields();
+		this.dto.setSpaceSlots(this.familySpace.getSpaceSlots().stream()
+				.map(spaceSlot -> new SpaceSlotDTOBuilder().withSpaceSlot(spaceSlot).buildByFamilySpace())
+				.collect(Collectors.toSet()));
+		return this.dto;
+	}
+	
+	public FamilySpaceDTO lightBuild() {
+		this.setCommonFields();
+		return this.dto;
+	}
+
+	public FamilySpaceDTO buildBySpaceSlot(long id) {
+		this.setCommonFields();
+		this.dto.setSpaceSlots(this.familySpace.getSpaceSlots().stream()
+				.filter(slot -> slot.getId() != id)
+				.map(spaceSlot -> new SpaceSlotDTOBuilder().withSpaceSlot(spaceSlot).buildByFamilySpace())
+				.collect(Collectors.toSet()));
+		return this.dto;
+	}
+	
+	private void setCommonFields() {
+		this.dto.setId(this.familySpace.getId());
+		this.dto.setName(this.familySpace.getName());
+	}
 }

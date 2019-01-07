@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ReferenceService } from "src/app/entity/reference/reference.service";
+import { SnackBarService } from "src/app/shared/snack-bar.service";
 
 @Component({
     selector: 'references',
@@ -12,7 +13,8 @@ export class ReferencesComponent implements OnInit, OnDestroy {
     public familyLink: string;
 
     constructor(
-        private referenceService: ReferenceService
+        private referenceService: ReferenceService,
+        private snackBarService: SnackBarService
     ) { }
 
     ngOnInit(): void {
@@ -25,7 +27,10 @@ export class ReferencesComponent implements OnInit, OnDestroy {
 
     public onSubmitFamilyLink(): void {
         this.referenceService.postFamilyLink(this.familyLink).subscribe(
-            link => this.familyLinks.push(link)
+            link => {
+                this.familyLinks.push(link);
+                this.snackBarService.openSnackBar('Lien : ' + link, SnackBarService.ADDED_ACTION);
+            }
         );
     }
 

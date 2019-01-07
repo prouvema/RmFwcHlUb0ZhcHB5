@@ -57,5 +57,14 @@ public class UserService implements UserDetailsService {
 	public List<User> findAllUsers() {
 		return this.userRepository.findAll();
 	}
+
+	/**
+	 * Find all the users urgence contact from a space.
+	 * @param slotId
+	 * @return list of user
+	 */
+	public List<User> findUrgenceContactsBySpaceId(long spaceId) {
+		return this.userRepository.findAllUsersBySpaceIdAndUrgenceContact(spaceId);
+	}
 	
 }

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, TemplateRef } from '@angular/core';
+import { NgModule, TemplateRef, LOCALE_ID } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
@@ -12,11 +12,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthenticationEffects } from './security/authentication.effect';
 import { reducers } from './app.states';
 import { TokenInterceptor } from './security/token.interceptor';
-import { UnauthorizedInterceptor } from './security/unauthorized.interceptor';
+import { ErrorInterceptor } from './security/error.interceptor';
 import { UnauthorizedComponent } from './component/unauthorized/unauthorized.component';
 import { AuthGuardService as AuthGuard } from './security/auth-guard.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatFormFieldModule, MatInputModule, MatButtonModule, MatCheckboxModule, MatMenuModule, MatIconModule, MatListModule, MatTableModule, MatSelectModule, MatSlideToggleModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatButtonModule, MatCheckboxModule, MatMenuModule, MatIconModule, MatListModule, MatTableModule, MatSelectModule, MatSlideToggleModule, MatSnackBarModule, MatToolbarModule, MatExpansionModule } from '@angular/material';
 import { UserService } from './entity/user/user.service';
 import { HasAnyRoleDirective } from './directive/has-any-role.directive';
 import { DashboardAdminComponent } from './component/dashboard/dashboard-admin/dashboard-admin.component';
@@ -28,6 +28,17 @@ import { SpaceService } from './entity/space/space.service';
 import { EspaceEditComponent } from './component/admin/espaces/edit/espace-edit.component';
 import { ReferencesComponent } from './component/admin/references/references.component';
 import { ReferenceService } from './entity/reference/reference.service';
+import { RoleService } from './entity/role/role.service';
+import { RolesComponent } from './component/admin/roles/roles.component';
+import { SnackBarService } from './shared/snack-bar.service';
+import { DashboardSpaceComponent } from './component/dashboard/dashboard-space/dashboard-space.component';
+import { SpaceSlotService } from './entity/space-slot/space-slot.service';
+import { UrgenceContactsComponent } from './component/dashboard/dashboard-space/urgence-contacts/urgence-contacts.component';
+import { MessageService } from './entity/message/message.service';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+
+registerLocaleData(localeFr, 'fr-FR');
 
 @NgModule({
   declarations: [
@@ -37,11 +48,14 @@ import { ReferenceService } from './entity/reference/reference.service';
     DashboardComponent,
     DashboardUserComponent,
     DashboardAdminComponent,
+    DashboardSpaceComponent,
+    UrgenceContactsComponent,
     UnauthorizedComponent,
     SettingComponent,
     EspacesComponent,
     EspaceEditComponent,
-    ReferencesComponent
+    ReferencesComponent,
+    RolesComponent
   ],
   imports: [
     MatFormFieldModule,
@@ -54,6 +68,9 @@ import { ReferenceService } from './entity/reference/reference.service';
     MatTableModule,
     MatSelectModule,
     MatSlideToggleModule,
+    MatSnackBarModule,
+    MatToolbarModule,
+    MatExpansionModule,
     
     BrowserModule,
     HttpClientModule,
@@ -71,7 +88,11 @@ import { ReferenceService } from './entity/reference/reference.service';
     AuthGuard,
     UserService,
     SpaceService,
+    SpaceSlotService,
     ReferenceService,
+    RoleService,
+    SnackBarService,
+    MessageService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
@@ -79,9 +100,10 @@ import { ReferenceService } from './entity/reference/reference.service';
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: UnauthorizedInterceptor,
+      useClass: ErrorInterceptor,
       multi: true
-    }
+    },
+    { provide: LOCALE_ID, useValue: "fr-FR" }
   ],
   bootstrap: [AppComponent]
 })

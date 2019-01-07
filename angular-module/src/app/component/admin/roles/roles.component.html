@@ -1,0 +1,60 @@
+<div class="container">
+    <mat-toolbar>
+        Les rôle d'espace
+    </mat-toolbar>
+    <div class="offset-md-1 col-md-10">
+
+
+        <form #spaceRoleForm="ngForm" (ngSubmit)="addSpaceRole()" novalidate>
+            <div class="row">
+                <div class="col-md-5">
+                    <mat-form-field class="w-100">
+                        <input matInput [(ngModel)]="spaceRole.name" name="spaceRoleName" placeholder="Nom du rôle"
+                            required>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-5">
+                    <mat-form-field class="w-100">
+                        <mat-select required placeholder="Accès" [(ngModel)]="spaceRole.accesses" name="spaceRoleAccesses"
+                            multiple>
+                            <mat-option *ngFor="let access of spaceAccesses" [value]="access">
+                                {{access}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 d-flex align-items-center justify-content-center">
+                    <button mat-mini-fab [disabled]="!spaceRoleForm.form.valid" class="valid-button mb-3" type="submit">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <div *ngIf="!spaceRoles.length" class="alert alert-secondary text-center" role="alert">
+            Aucun rôle
+        </div>
+
+        <mat-accordion>
+
+            <mat-expansion-panel *ngFor="let spaceRole of spaceRoles">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{spaceRole.name}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <div class="row">
+                    <div class="col-lg-4" *ngFor="let access of spaceRole.accesses">
+                        {{access}}
+                    </div>
+                </div>
+
+            </mat-expansion-panel>
+
+        </mat-accordion>
+    </div>
+</div>

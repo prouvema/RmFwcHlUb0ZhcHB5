@@ -1,7 +1,7 @@
 package com.fappy.javamodule.builder.entity;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import com.fappy.javamodule.domain.entity.User;
 import com.fappy.javamodule.domain.entity.space.FamilyLink;
@@ -53,10 +53,10 @@ public class SpaceSlotBuilder {
 	 * 
 	 * @param roleDtos
 	 */
-	private void setSpaceSlotRole(List<String> roleDtos) {
+	private void setSpaceSlotRole(Set<String> roleDtos) {
 			roleDtos.stream()
 				.forEach(roleDto -> {
-					Optional<SpaceRole> roleToAdd = this.spaceRoleService.findByName(roleDto);
+					Optional<SpaceRole> roleToAdd = this.spaceRoleService.findSpaceRoleByName(roleDto);
 					if (roleToAdd.isPresent()) {
 						this.spaceSlot.getSpaceRoles().add(roleToAdd.get());
 					}

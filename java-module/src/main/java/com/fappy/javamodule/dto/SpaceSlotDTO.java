@@ -1,6 +1,6 @@
 package com.fappy.javamodule.dto;
 
-import java.util.List;
+import java.util.Set;
 
 public class SpaceSlotDTO extends AbstractDTO {
 
@@ -9,7 +9,8 @@ public class SpaceSlotDTO extends AbstractDTO {
 	private String validationState;
 	private String tokenValidation;
 	private boolean urgenceContact;
-	private List<String> roles;
+	private Set<String> roles;
+	private FamilySpaceDTO space;
 	
 	public UserDTO getUser() {
 		return user;
@@ -41,11 +42,17 @@ public class SpaceSlotDTO extends AbstractDTO {
 	public void setUrgenceContact(boolean urgenceContact) {
 		this.urgenceContact = urgenceContact;
 	}
-	public List<String> getRoles() {
+	public Set<String> getRoles() {
 		return roles;
 	}
-	public void setRoles(List<String> roles) {
+	public void setRoles(Set<String> roles) {
 		this.roles = roles;
+	}
+	public FamilySpaceDTO getSpace() {
+		return space;
+	}
+	public void setSpace(FamilySpaceDTO space) {
+		this.space = space;
 	}
 	
 }

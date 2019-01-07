@@ -9,7 +9,7 @@ export class SpaceService {
 
     constructor(
         private http: HttpClient
-    ) {}
+    ) { }
 
     public getAllSpaces(): Observable<LightSpace[]> {
         const url = `${API_SPACE}`;
@@ -26,7 +26,7 @@ export class SpaceService {
         return this.http.post<Space>(url, space);
     }
 
-    patchSpace(space: Space): any {
+    public patchSpace(space: Space): Observable<Space> {
         const url = `${API_SPACE}`;
         return this.http.patch<Space>(url, space);
     }

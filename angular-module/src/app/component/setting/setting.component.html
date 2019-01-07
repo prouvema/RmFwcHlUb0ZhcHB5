@@ -1,11 +1,17 @@
-<div class="row" *ngIf="authenticated">
-    <div class="offset-5 col-2 d-flex justify-content-center">
-        <a class="valid-button" mat-fab routerLink="/home" routerLinkActive="active">Menu</a>
-    </div>
-    <div class="offset-4 col-1 d-flex justify-content-end">
-        <button class="mx-5 my-2" mat-icon-button [matMenuTriggerFor]="settings">
-            <mat-icon>settings</mat-icon>
-        </button>
+<div class="header" *ngIf="authenticated">
+    <div class="row">
+        <div class="offset-5 col-2 d-flex justify-content-center">
+            <a class="valid-button m-2" mat-fab routerLink="/home" routerLinkActive="active">
+                <i class="material-icons">
+                    menu
+                </i>
+            </a>
+        </div>
+        <div class="offset-4 col-1 d-flex justify-content-end">
+            <button class="mx-5 my-2" mat-icon-button [matMenuTriggerFor]="settings">
+                <mat-icon>settings</mat-icon>
+            </button>
+        </div>
     </div>
 </div>
 <mat-menu #settings="matMenu">

@@ -1,7 +1,7 @@
 <div class="container" *ngIf="space">
     <h1>{{ space.id ? 'Editer' : 'Ajouter'}} un espace de famille</h1>
     <hr>
-    <form #spaceForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+    <form #spaceForm="ngForm" (ngSubmit)="onSubmit()">
 
         <div class="row">
             <div class="col-lg-5 offset-lg-1">
@@ -12,38 +12,47 @@
         </div>
 
         <!-- SPACE SLOT EDIT -->
-        <div class="row">
-            <div class="col-lg-10 offset-lg-1">
-                <h5>Les slots</h5>
-                <hr>
-                <div class="row" *ngFor="let spaceSlot of space.spaceSlots">
-                    <div class="col-md-12">
+        <section>
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+                    <h5>Les slots</h5>
+                    <hr class="mb-4">
+                </div>
+            </div>
+            <ng-container *ngFor="let spaceSlot of space.spaceSlots; index as i">
+                <div class="row">
+                    <div class="col-lg-4 offset-lg-1">
 
-                        <mat-form-field *ngIf="!spaceSlot.id">
-                            <mat-select required placeholder="Utilisateur" [(ngModel)]="spaceSlot.user" [(value)]="spaceSlot.user"
-                                name="user">
-                                <mat-option *ngFor="let user of users" [value]="user">
-                                    {{user.username}}
+                        <mat-form-field class="w-100">
+                            <mat-select required placeholder="Utilisateur" [(ngModel)]="spaceSlot.user.username" [name]="'user' + i">
+                                <mat-option *ngFor="let username of usernames" [value]="username">
+                                    {{username}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
 
-                        <span *ngIf="spaceSlot.id">
-                            {{spaceSlot.user.username}}
-                        </span>
+                        <mat-form-field class="w-100">
+                            <mat-select required placeholder="Role" [(ngModel)]="spaceSlot.roles" [name]="'spaceRole' + i" multiple>
+                                <mat-option *ngFor="let spaceRole of spaceRoles" [value]="spaceRole">
+                                    {{spaceRole}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
 
-                        <mat-form-field>
+                    </div>
+                    <div class="col-lg-3">
+                        <mat-form-field class="w-100">
                             <mat-select required placeholder="Lien de famille" [(ngModel)]="spaceSlot.familyLink"
-                                [(value)]="spaceSlot.familyLink" name="familyLink">
+                                [(value)]="spaceSlot.familyLink" [name]="'familyLink' + i">
                                 <mat-option *ngFor="let familyLink of familyLinks" [value]="familyLink">
                                     {{familyLink}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
 
-                        <mat-form-field>
+                        <mat-form-field class="w-100">
                             <mat-select required placeholder="Etat de validation" [(ngModel)]="spaceSlot.validationState"
-                                name="validationState" [(value)]="spaceSlot.validationState">
+                                [name]="'validationState' + i" [(value)]="spaceSlot.validationState">
                                 <mat-option value="WAITING">
                                     En attente
                                 </mat-option>
@@ -55,25 +64,42 @@
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
-
-                        <mat-form-field>
-                            <input matInput [(ngModel)]="spaceSlot.tokenValidation" name="tokenValidation" placeholder="Token de validation">
+                    </div>
+                    <div class="col-lg-3">
+                        <mat-form-field class="w-100">
+                            <input matInput [(ngModel)]="spaceSlot.tokenValidation" [name]="'tokenValidation' + i"
+                                placeholder="Token de validation">
                         </mat-form-field>
-                        
-                        <mat-slide-toggle [(ngModel)]="spaceSlot.urgenceContact" name="urgenceContact">Contact
+
+                        <mat-slide-toggle [(ngModel)]="spaceSlot.urgenceContact" [name]="'urgenceContact' + i">Contact
                             d'urgence</mat-slide-toggle>
 
                     </div>
+                    <div class="col-lg-1">
+                        <button type="button" mat-mini-fab color="warn" (click)="removeSpaceSlotAtIndex(i)">
+                            <mat-icon>remove</mat-icon>
+                        </button>
+                    </div>
                 </div>
-                <div *ngIf="!space.spaceSlots.length" class="alert alert-secondary text-center" role="alert">
-                    Aucun slot
+                <div class="row">
+                    <div class="offset-lg-1 col-lg-10">
+                        <hr>
+                    </div>
                 </div>
-                <hr>
-                <div class="row d-flex justify-content-center">
-                    <button type="button" mat-raised-button (click)="addSpaceSlot()">Ajouter un slot</button>
+            </ng-container>
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+                    <div *ngIf="!space.spaceSlots.length" class="alert alert-secondary text-center" role="alert">
+                        Aucun slot
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <button type="button" mat-mini-fab class="valid-button" (click)="addSpaceSlot()">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
         <!--  -->
 
         <div class="row d-flex justify-content-end">

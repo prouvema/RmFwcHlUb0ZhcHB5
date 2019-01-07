@@ -1,4 +1,4 @@
-import { User } from "../user/user.model";
+import { SpaceSlot } from "../space-slot/space-slot.model";
 
 export interface LightSpace {
     id: number;
@@ -9,12 +9,12 @@ export interface Space extends LightSpace {
     spaceSlots: SpaceSlot[];
 }
 
-export interface SpaceSlot {
-    id: number;
-    user: User;
-    familyLink: string;
-    validationState: string;
-    tokenValidation: string;
-    urgenceContact: boolean;
-    roles: string[];
+export class SpaceFactory {
+    public static createEmptySpace(): Space {
+        return {
+            id: 0,
+            name: null,
+            spaceSlots: []
+        };
+    }
 }

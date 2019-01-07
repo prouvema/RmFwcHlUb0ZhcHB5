@@ -1,5 +1,6 @@
 
 $fappyColor: #3b3850;
+$fappyColorLight: #515057;
 
 * {
     outline: none !important;
@@ -11,4 +12,27 @@ $fappyColor: #3b3850;
 .mat-raised-button {
     font-size: 22px;
     font-family: monospace;
+}
+.navigation-icon {
+    font-size: 1.7rem;
+} 
+.header {
+    z-index: 1;
+    background-color: white;
+    position: fixed;
+    top: 0px;
+    width: 100%; 
+}
+.header-second {
+    z-index: 1;
+    background-color: white;
+    position: fixed;
+    top: 72px;
+    width: 100%; 
+}
+.footer {
+    background-color: white;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
 }

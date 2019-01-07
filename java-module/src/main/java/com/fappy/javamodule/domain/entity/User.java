@@ -51,7 +51,7 @@ public class User extends AbstractEntity implements UserDetails {
 	private Profile profile;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private Set<SpaceSlot> slotSpaces;
+	private Set<SpaceSlot> spaceSlots;
 	
 	@JoinTable(
 			name = "user_application_role_join", 
@@ -157,12 +157,12 @@ public class User extends AbstractEntity implements UserDetails {
 		this.credentialsNonExpired = credentialsNonExpired;
 	}
 
-	public Set<SpaceSlot> getSlotSpaces() {
-		return slotSpaces;
+	public Set<SpaceSlot> getSpaceSlots() {
+		return spaceSlots;
 	}
 
-	public void setSlotSpaces(Set<SpaceSlot> slotSpaces) {
-		this.slotSpaces = slotSpaces;
+	public void setSpaceSlots(Set<SpaceSlot> slotSpaces) {
+		this.spaceSlots = slotSpaces;
 	}
     
 }

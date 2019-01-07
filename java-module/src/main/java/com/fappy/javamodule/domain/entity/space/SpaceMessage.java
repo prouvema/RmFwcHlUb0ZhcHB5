@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,7 +26,7 @@ public class SpaceMessage extends AbstractEntity {
 	private FamilySpace familySpace;
 	
 	@NotNull
-	@OneToOne(optional = false)
+	@ManyToOne(optional = false)
 	private User user;
 
 	public String getContent() {

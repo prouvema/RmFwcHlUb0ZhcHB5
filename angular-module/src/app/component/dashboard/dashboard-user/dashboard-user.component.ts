@@ -1,9 +1,7 @@
 import { Component, OnInit, OnDestroy, Input } from "@angular/core";
-import { Store } from "@ngrx/store";
-import { AppState, selectUserState } from "src/app/app.states";
 import { User } from "src/app/entity/user/user.model";
-import { Observable, Subscription } from "rxjs";
-import { UserService } from "src/app/entity/user/user.service";
+import { Router } from "@angular/router";
+import { SpaceSlot } from "src/app/entity/space-slot/space-slot.model";
 
 @Component({
     selector: 'body-dashboard-user',
@@ -15,7 +13,9 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
     @Input()
     public user: User;
 
-    constructor() { }
+    constructor(
+        private router: Router
+    ) { }
 
     ngOnInit() {
 
@@ -23,5 +23,10 @@ export class DashboardUserComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
 
+    }
+
+    public navigateToDashboardSpaceBySlot(slot: SpaceSlot): void {
+        const url = `/home/space/${slot.space.id}/slot/${slot.id}`;
+        this.router.navigateByUrl(url);
     }
 }

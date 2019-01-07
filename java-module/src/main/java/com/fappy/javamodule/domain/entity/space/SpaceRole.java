@@ -1,5 +1,6 @@
 package com.fappy.javamodule.domain.entity.space;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -29,7 +30,7 @@ public class SpaceRole extends AbstractEntity {
 			inverseJoinColumns = @JoinColumn(name = "space_access_id")
 			)
 	@ManyToMany
-	private Set<SpaceAccess> spaceAccesses;
+	private Set<SpaceAccess> spaceAccesses = new HashSet<>();
 
 	public String getName() {
 		return name;

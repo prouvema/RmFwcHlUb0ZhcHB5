@@ -1,0 +1,33 @@
+<div class="row d-flex justify-content-center">
+    <h6>Contacts d'urgence</h6>
+</div>
+<div *ngIf="!urgenceContacts.length" class="alert alert-secondary text-center" role="alert">
+    Aucun contact d'urgence
+</div>
+
+<article class="my-4" *ngFor="let contact of urgenceContacts">
+    <div class="row d-flex justify-content-center">
+        Statut : {{contact.link}}
+    </div>
+    <div class="row d-flex justify-content-center">
+        Nom : {{contact.firstname}} {{contact.lastname}}
+    </div>
+    <div class="row d-flex justify-content-center">
+        Portable : {{contact.mobile}}
+    </div>
+    <div class="row d-flex justify-content-center">
+        Fixe : {{contact.phone}}
+    </div>
+</article>
+
+<div class="footer">
+    <div class="container">
+        <div class="row d-flex justify-content-center align-items-center">
+            <button mat-icon-button (click)="navigateToDashboardSpace()">
+                <i class="material-icons navigation-icon">
+                    expand_less
+                </i>
+            </button>
+        </div>
+    </div>
+</div>

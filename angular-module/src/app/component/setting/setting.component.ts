@@ -7,8 +7,8 @@ import { IsAuthenticated, LogOut } from "src/app/security/authentication.action"
 
 @Component({
     selector: 'app-setting',
-    templateUrl: './setting.component.html'
-    // styleUrls: ['./spectator-welcome.component.scss']
+    templateUrl: './setting.component.html',
+    styleUrls: ['./setting.component.scss']
 })
 export class SettingComponent implements OnInit, OnDestroy {
 

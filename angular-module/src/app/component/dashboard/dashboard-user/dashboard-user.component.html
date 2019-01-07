@@ -1,5 +1,16 @@
 <div class="container">
-    <div class="row d-flex justify-content-center">
-        <p>{{user?.firstname}} {{user?.lastname | uppercase}}</p>
-    </div>
+    <section class="mt-5">
+        <div class="row d-flex justify-content-center">
+            <p>{{user?.firstname}} {{user?.lastname | uppercase}}</p>
+        </div>
+    </section>
+    <section class="space-list" *ngIf="user">
+        <article *ngFor="let slot of user.spaceSlots">
+            <div class="row d-flex justify-content-center">
+                <button mat-button (click)="navigateToDashboardSpaceBySlot(slot)">
+                    <span class="space-name-label">{{slot.space.name}}</span> <i class="material-icons navigation-icon ml-3"> arrow_forward_ios </i>
+                </button>
+            </div>
+        </article>
+    </section>
 </div>

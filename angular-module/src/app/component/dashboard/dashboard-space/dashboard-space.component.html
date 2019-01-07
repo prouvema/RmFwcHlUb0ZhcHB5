@@ -1,0 +1,62 @@
+<div class="header-second">
+    <div class="row">
+        <div class="offset-md-3 col-md-6">
+            <button class="w-100" mat-stroked-button (click)="navigateToUrgenceContacts()">Contacts d'urgence</button>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+
+
+    <section id="messages" class="messages-container">
+        <div class="row">
+            <div class="offset-md-2 col-md-8">
+
+                <article class="m-5" *ngFor="let message of messages">
+                    <div class="row text-center message-container p-1">
+                        <span>
+                            {{message.content}}
+                        </span>
+                    </div>
+                    <div class="row d-flex justify-content-around">
+                        <span class="message-date">
+                            {{message.createTime | date:'d MMMM y'}}
+                        </span>
+                        <span class="message-date">
+                            {{message.firstname}}
+                            {{message.lastname}}
+                        </span>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+</div>
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <mat-form-field class="w-100">
+                    <textarea [(ngModel)]="messageContent" name="messageContent" matInput rows="4" placeholder="Votre message"></textarea>
+                </mat-form-field>
+            </div>
+            <div class="col-2 d-flex justify-content-center align-items-center">
+                <button mat-mini-fab class="utility-footer-button">
+                    <i class="material-icons utility-footer-icon">
+                        attach_file
+                    </i>
+                </button>
+            </div>
+            <div class="col-2 d-flex justify-content-center align-items-center">
+                <button mat-mini-fab class="utility-footer-button" (click)="sendMessage()">
+                    <i class="material-icons utility-footer-icon">
+                        send
+                    </i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

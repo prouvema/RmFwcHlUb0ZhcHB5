@@ -17,8 +17,18 @@ export class UserService {
         private store: Store<AppState>
     ) { }
 
+    public getAllUsers_ForSelect(): Observable<string[]> {
+        const url = `${API_USER}/select`;
+        return this.http.get<string[]>(url);
+    }
+
     public getAllUsers(): Observable<User[]> {
         const url = `${API_USER}`;
+        return this.http.get<User[]>(url);
+    }
+
+    public getAllUrgenceContactsBySpaceId(spaceId: number): Observable<User[]> {
+        const url = `${API_USER}/${spaceId}/urgencecontacts`;
         return this.http.get<User[]>(url);
     }
 
@@ -29,9 +39,7 @@ export class UserService {
                 map((user: User) => {
                     return {
                         type: UserActionTypes.GET_CURRENT,
-                        payload: {
-                            user: user
-                        }
+                        payload: user
                     };
                 })
             )

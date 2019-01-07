@@ -3,6 +3,7 @@ package com.fappy.javamodule.updator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fappy.javamodule.domain.entity.User;
@@ -84,7 +85,7 @@ public class SpaceSlotUpdator {
 	 * 
 	 * @param spaceSlots
 	 */
-	private void deleteOldRoles(List<String> roleDtos) {
+	private void deleteOldRoles(Set<String> roleDtos) {
 		List<SpaceRole> rolesToDelete = new ArrayList<>();
 		
 		this.spaceSlot.getSpaceRoles().stream()
@@ -98,7 +99,7 @@ public class SpaceSlotUpdator {
 	 * 
 	 * @param dto
 	 */
-	private void AddRoles(List<String> roleDtos) {
+	private void AddRoles(Set<String> roleDtos) {
 		
 		List<String> roles = this.spaceSlot.getSpaceRoles().stream()
 			.map(role -> role.getName())
@@ -107,7 +108,7 @@ public class SpaceSlotUpdator {
 		roleDtos.stream()
 			.filter(roleDto -> !roles.contains(roleDto))
 			.forEach(roleDto -> {
-				Optional<SpaceRole> roleToAdd = this.spaceRoleService.findByName(roleDto);
+				Optional<SpaceRole> roleToAdd = this.spaceRoleService.findSpaceRoleByName(roleDto);
 				if (roleToAdd.isPresent()) {
 					this.spaceSlot.getSpaceRoles().add(roleToAdd.get());
 				}

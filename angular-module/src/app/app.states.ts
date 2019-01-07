@@ -5,7 +5,7 @@ import { createFeatureSelector } from '@ngrx/store';
 
 export interface AppState {
   authState: auth.State;
-  currentUserState: user.State; 
+  currentUserState: user.State;
   selectAccessesState: accesses.State;
 }
 
