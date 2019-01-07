@@ -6,6 +6,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fappy.javamodule.builder.dto.FamilySpaceDTOBuilder;
+import com.fappy.javamodule.builder.dto.SpaceMessageDTOBuilder;
 import com.fappy.javamodule.builder.entity.FamilySpaceBuilder;
 import com.fappy.javamodule.domain.entity.space.FamilySpace;
+import com.fappy.javamodule.domain.entity.space.SpaceMessage;
 import com.fappy.javamodule.dto.FamilySpaceDTO;
+import com.fappy.javamodule.dto.SpaceMessageDTO;
 import com.fappy.javamodule.service.FamilySpaceService;
 import com.fappy.javamodule.service.ReferenceService;
 import com.fappy.javamodule.service.SpaceRoleService;
@@ -48,7 +56,7 @@ public class FamilySpaceController {
 	 * @return
 	 */
 	@GetMapping(path = "{id}")
-	public ResponseEntity<?> findFamilySpaceById(@PathVariable long id) {
+	public ResponseEntity<?> findById(@PathVariable long id) {
 		Optional<FamilySpace> familySpace = this.familySpaceService.findById(id);
 		if (!familySpace.isPresent()) {
 			return ResponseEntity.notFound().build();
@@ -66,7 +74,7 @@ public class FamilySpaceController {
 	 * @return
 	 */
 	@GetMapping
-	public ResponseEntity<Set<FamilySpaceDTO>> findAllFamilySpaces() {
+	public ResponseEntity<Set<FamilySpaceDTO>> findAll() {
 		List<FamilySpace> familySpaces = this.familySpaceService.findAllFamilySpaces();
 		
 		Set<FamilySpaceDTO> familySpaceDTOs = familySpaces.stream()
@@ -75,6 +83,14 @@ public class FamilySpaceController {
 		
 		return new ResponseEntity<>(familySpaceDTOs, HttpStatus.OK);
 	}
+
+	@GetMapping(path = "page/{page}/size/{size}")
+	public ResponseEntity<Page<FamilySpaceDTO>> findByPagination(@PathVariable int page, @PathVariable int size) {
+		Pageable pageRequest = PageRequest.of(page, size, Sort.Direction.DESC, "createTime");
+		Page<FamilySpace> spacesPage = this.familySpaceService.findAll(pageRequest);
+		Page<FamilySpaceDTO> dtoPage = spacesPage.map(familySpace -> new FamilySpaceDTOBuilder().withFamilySpace(familySpace).lightBuild());
+		return ResponseEntity.ok(dtoPage);
+	}
 	
 	/**
 	 * 
@@ -82,7 +98,7 @@ public class FamilySpaceController {
 	 * @return
 	 */
 	@PatchMapping
-	public ResponseEntity<?> patchFamilySpace(@RequestBody FamilySpaceDTO familySpaceDTO) {
+	public ResponseEntity<?> update(@RequestBody FamilySpaceDTO familySpaceDTO) {
 		
 		Optional<FamilySpace> familySpaceRead = this.familySpaceService.findById(familySpaceDTO.getId());
 		if (!familySpaceRead.isPresent()) {
@@ -109,7 +125,7 @@ public class FamilySpaceController {
 	 * @return
 	 */
 	@PostMapping
-	public ResponseEntity<FamilySpaceDTO> postFamilySpace(@RequestBody FamilySpaceDTO familySpaceDTO) {
+	public ResponseEntity<FamilySpaceDTO> create(@RequestBody FamilySpaceDTO familySpaceDTO) {
 		
 		FamilySpace familySpace = new FamilySpaceBuilder(this.referenceService, this.userService, this.spaceRoleService)
 				.withFamilySpaceDTO(familySpaceDTO)

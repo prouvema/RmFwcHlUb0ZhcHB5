@@ -14,7 +14,7 @@ public class SpaceMessageService {
 	@Autowired
 	private SpaceMessageRepository spaceMessageRepository;
 
-	public Page<SpaceMessage> findBySpace(long spaceId, Pageable pageRequest) {
+	public Page<SpaceMessage> findBySpaceAndPageable(long spaceId, Pageable pageRequest) {
 		return this.spaceMessageRepository.findBySpaceId(spaceId, pageRequest);
 	}
 

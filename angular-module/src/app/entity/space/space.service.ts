@@ -11,6 +11,11 @@ export class SpaceService {
         private http: HttpClient
     ) { }
 
+    public getAllByPageable(page: number, size: number): Observable<any> {
+        const url = `${API_SPACE}/page/${page}/size/${size}`;
+        return this.http.get<any>(url);
+    }
+
     public getAllSpaces(): Observable<LightSpace[]> {
         const url = `${API_SPACE}`;
         return this.http.get<LightSpace[]>(url);

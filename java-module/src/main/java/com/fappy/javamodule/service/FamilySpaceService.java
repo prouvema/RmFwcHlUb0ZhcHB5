@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.fappy.javamodule.domain.entity.space.FamilySpace;
@@ -39,5 +41,9 @@ public class FamilySpaceService {
 	 */
 	public FamilySpace save(FamilySpace familySpace) {
 		return this.familySpaceRepository.save(familySpace);
+	}
+	
+	public Page<FamilySpace> findAll(Pageable pageRequest) {
+		return this.familySpaceRepository.findAll(pageRequest);
 	}
 }

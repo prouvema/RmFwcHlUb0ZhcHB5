@@ -35,4 +35,10 @@ $fappyColorLight: #515057;
     position: fixed;
     bottom: 0px;
     width: 100%;
+} 
+.clickable:hover {
+    background: #f5f5f5;
+}
+.clickable:active {
+    background: #efefef;
 }

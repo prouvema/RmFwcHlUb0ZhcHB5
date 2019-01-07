@@ -38,9 +38,9 @@ public class SpaceMessageController {
 	private SpaceMessageService spaceMessageService;
 	
 	@GetMapping(path = "space/{spaceId}/page/{page}/size/{size}")
-	public ResponseEntity<List<SpaceMessageDTO>> find(@PathVariable long spaceId, @PathVariable int page, @PathVariable int size) {
+	public ResponseEntity<List<SpaceMessageDTO>> findByPagination(@PathVariable long spaceId, @PathVariable int page, @PathVariable int size) {
 		Pageable pageRequest = PageRequest.of(page, size, Sort.Direction.ASC, "createTime");
-		Page<SpaceMessage> messagesPage = this.spaceMessageService.findBySpace(spaceId, pageRequest);
+		Page<SpaceMessage> messagesPage = this.spaceMessageService.findBySpaceAndPageable(spaceId, pageRequest);
 		List<SpaceMessageDTO> dtos = messagesPage.stream()
 			.map(message -> new SpaceMessageDTOBuilder().withSpaceMessage(message).build())
 			.collect(Collectors.toList());

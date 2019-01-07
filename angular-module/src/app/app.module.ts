@@ -16,7 +16,7 @@ import { ErrorInterceptor } from './security/error.interceptor';
 import { UnauthorizedComponent } from './component/unauthorized/unauthorized.component';
 import { AuthGuardService as AuthGuard } from './security/auth-guard.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatFormFieldModule, MatInputModule, MatButtonModule, MatCheckboxModule, MatMenuModule, MatIconModule, MatListModule, MatTableModule, MatSelectModule, MatSlideToggleModule, MatSnackBarModule, MatToolbarModule, MatExpansionModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatButtonModule, MatCheckboxModule, MatMenuModule, MatIconModule, MatListModule, MatTableModule, MatSelectModule, MatSlideToggleModule, MatSnackBarModule, MatToolbarModule, MatExpansionModule, MatPaginatorModule } from '@angular/material';
 import { UserService } from './entity/user/user.service';
 import { HasAnyRoleDirective } from './directive/has-any-role.directive';
 import { DashboardAdminComponent } from './component/dashboard/dashboard-admin/dashboard-admin.component';
@@ -71,6 +71,7 @@ registerLocaleData(localeFr, 'fr-FR');
     MatSnackBarModule,
     MatToolbarModule,
     MatExpansionModule,
+    MatPaginatorModule,
     
     BrowserModule,
     HttpClientModule,
